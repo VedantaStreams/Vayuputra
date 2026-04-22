@@ -1,0 +1,38 @@
+[
+  {
+    "id": "v001",
+    "title": "Vāyuputra in Windy City — Official Promo",
+    "channel": "Gangotri",
+    "type": "Promo",
+    "youtubeId": "PASTE_YOUTUBE_ID_HERE",
+    "date": "2026-01-20",
+    "featured": true
+  },
+  {
+    "id": "v002",
+    "title": "Hanumān Chalisā Week 1 — Spiritual Stream",
+    "channel": "Badri",
+    "type": "Stream",
+    "youtubeId": "PASTE_YOUTUBE_ID_HERE",
+    "date": "2026-01-10",
+    "featured": false
+  },
+  {
+    "id": "v003",
+    "title": "Chaupai 1 — Jai Hanuman Gyan Gun Sagar",
+    "channel": "Yamunotri",
+    "type": "Chaupai",
+    "youtubeId": "PASTE_YOUTUBE_ID_HERE",
+    "date": "2026-01-17",
+    "featured": false
+  },
+  {
+    "id": "v004",
+    "title": "Sponsorship & Seva — How to Participate",
+    "channel": "Gangotri",
+    "type": "Promo",
+    "youtubeId": "PASTE_YOUTUBE_ID_HERE",
+    "date": "2026-01-24",
+    "featured": false
+  }
+]

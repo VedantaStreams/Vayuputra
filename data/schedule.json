@@ -1,0 +1,10 @@
+[
+  { "time": "8:00 AM", "activity": "Samashti Yoga", "description": "Devotional Surya Namaskars and asanas offered to Hanumanji. Open to all.", "category": "Spiritual", "icon": "🧘" },
+  { "time": "10:00 AM", "activity": "Samashti Hanumān Havan", "description": "Multiple grand Havan Kunds begin. The sacred fire ritual at the heart of the event.", "category": "Spiritual", "icon": "🔥" },
+  { "time": "10:00 AM", "activity": "Hanumān Chalisā Chanting", "description": "21 rounds of collective chanting with hundreds of devotees raising their voices as one.", "category": "Spiritual", "icon": "📿" },
+  { "time": "All Day", "activity": "Cultural Performances", "description": "Vibrant bhajans, dance performances and spiritual discourses throughout the day.", "category": "Cultural", "icon": "🎭" },
+  { "time": "All Day", "activity": "Chinmaya Jeevan Darshan", "description": "A visual journey into the life, teachings and profound impact of Swami Chinmayananda.", "category": "Cultural", "icon": "🕉️" },
+  { "time": "All Day", "activity": "Family Mela", "description": "Food stalls, children's activities, games, vendor booths and community exhibits.", "category": "Family", "icon": "🎪" },
+  { "time": "All Day", "activity": "Bookstall", "description": "Curated collection of Vedanta, devotional and children's books.", "category": "Family", "icon": "📚" },
+  { "time": "All Day", "activity": "Spiritual Discourses", "description": "Talks by Pujya Swami Swaroopananda and other spiritual leaders.", "category": "Spiritual", "icon": "🙏" }
+]

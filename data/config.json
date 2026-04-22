@@ -1,0 +1,24 @@
+{
+  "event": {
+    "name": "Vāyuputra in Windy City",
+    "subtitle": "A Momentous Festival to Invoke His Grace",
+    "date": "2026-07-11T08:00:00",
+    "dateDisplay": "Saturday, July 11, 2026",
+    "time": "8:00 AM onwards",
+    "venue": "DuPage County Fairgrounds",
+    "address": "2015 Manchester Rd, Wheaton, IL 60187",
+    "mapsUrl": "https://maps.google.com/?q=DuPage+County+Fairgrounds,2015+Manchester+Rd,Wheaton,IL+60187",
+    "website": "https://vayuputra.org",
+    "email": "vayuputra@mychinmaya.org",
+    "registrationUrl": "https://vayuputra.org",
+    "presider": "Pujya Swami Swaroopananda",
+    "presiderTitle": "Global Head, Chinmaya Mission",
+    "organizer": "Chinmaya Mission Chicago",
+    "chapters": ["Badri", "Yamunotri", "Gangotri"]
+  },
+  "contacts": [
+    { "name": "Rajul Bhalala", "role": "President, Board of Trustees", "phone": "8473022383", "phoneDisplay": "(847) 302-2383" },
+    { "name": "Ashok Dholakia", "role": "Event Coordinator", "phone": "7086023901", "phoneDisplay": "(708) 602-3901" },
+    { "name": "Nitish Kanabar", "role": "Event Coordinator", "phone": "3478299099", "phoneDisplay": "(347) 829-9099" }
+  ]
+}

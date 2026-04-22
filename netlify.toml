@@ -1,0 +1,18 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
+    X-Frame-Options = "SAMEORIGIN"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=60"
+
+[[redirects]]
+  from = "/app"
+  to = "/index.html"
+  status = 200
