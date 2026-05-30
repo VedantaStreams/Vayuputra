@@ -1,0 +1,29 @@
+{
+  "name": "Vāyuputra in Windy City",
+  "short_name": "Vayuputra",
+  "description": "Samashti Hanuman Chalisa Havan — July 11, 2026 — DuPage County Fairgrounds",
+  "start_url": "/Vayuputra/",
+  "scope": "/Vayuputra/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#6B1212",
+  "theme_color": "#6B1212",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/flyer.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
