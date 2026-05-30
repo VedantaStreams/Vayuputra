@@ -1,121 +1,149 @@
-# Vāyuputra in Windy City — App
+# 🕉️ Vāyuputra in Windy City
 
-**Chinmaya Mission Chicago** · Badri | Yamunotri | Gangotri  
-**Event Date:** Saturday, July 11, 2026  
-**Venue:** DuPage County Fairgrounds, Wheaton, IL  
-**Website:** [vayuputra.org](https://vayuputra.org)
-
----
-
-## 🚀 Quick Start
-
-1. Clone this repo: `git clone https://github.com/vedantastreams/vayuputra.git`
-2. Open `index.html` in your browser — the app runs immediately
-3. To go live: drag the entire folder to [netlify.com/drop](https://netlify.com/drop)
+**Samashti Hanuman Chalisa Havan**  
+Chinmaya Mission Chicago · Badri | Yamunotri | Gangotri  
+**July 11, 2026 · DuPage County Fairgrounds, Wheaton, IL**  
+**Presided by:** Pujya Swami Swaroopananda Ji  
+Website: [vayuputra.org](https://vayuputra.org)
 
 ---
 
-## 📁 Repo Structure
+## Quick Start (run locally in 10 seconds)
+
+```bash
+git clone https://github.com/VedantaStreams/Vayuputra.git
+cd Vayuputra
+# Open index.html directly in Chrome — or use a local server:
+npx serve .      # then open http://localhost:3000
+```
+
+---
+
+## Project Structure
 
 ```
-vayuputra/
-├── index.html              ← Main app (all screens)
+Vayuputra/
+├── index.html              ← Full app (all screens, desktop + mobile)
+├── CNAME                   ← Custom domain: vayuputra.org
+├── netlify.toml            ← Netlify deploy config
+├── .gitignore
 ├── assets/
-│   ├── flyer.png           ← Add your event flyer here
-│   ├── cm-logo.png         ← Chinmaya Mission logo
-│   └── amrit-logo.png      ← 75th Amrit Mahotsav logo
-├── data/
-│   ├── config.json         ← Event details & contacts
-│   ├── videos.json         ← YouTube video library ← UPDATE WEEKLY
-│   ├── schedule.json       ← Event schedule
-│   ├── organizations.json  ← Partner orgs ← ADD NEW ORGS HERE
-│   ├── chalisa.json        ← 40 Chaupai tracker ← UPDATE WEEKLY
-│   └── sponsorships.json   ← Seva tiers
-├── netlify.toml            ← Auto-deploy config
-└── README.md               ← This file
+│   ├── flyer.png           ← Event flyer (already in repo)
+│   ├── logo.jpg            ← Vayuputra / Chinmaya Mission logo  ← ADD THIS
+│   └── cm75.jpg            ← 75th Amrit Mahotsav logo           ← ADD THIS
+└── data/
+    ├── config.json         ← Event details & contacts            ← edit anytime
+    ├── schedule.json       ← Full event schedule                 ← edit anytime
+    ├── videos.json         ← YouTube video library              ← UPDATE WEEKLY
+    ├── chalisa.json        ← 40 Chaupai tracker                 ← UPDATE WEEKLY
+    ├── organizations.json  ← Partner organizations              ← add new orgs
+    └── faq.json            ← FAQ answers                        ← edit anytime
 ```
 
 ---
 
-## ✏️ How to Update Content
+## How to Update Content (No Coding Needed)
 
-### ▶ Add a new YouTube video (every week)
+### ▶ Add a YouTube video (every week)
 1. Open `data/videos.json`
-2. Copy one of the existing entries
-3. Paste it at the top of the list
-4. Fill in: `title`, `channel` (Badri/Yamunotri/Gangotri), `type` (Stream/Chaupai/Promo), `youtubeId`
-5. The `youtubeId` is the part after `?v=` in the YouTube URL
-6. Submit a pull request → owner approves → live in 60 seconds
-
-**Example:**
+2. Add a new entry at the top:
 ```json
 {
-  "id": "v005",
-  "title": "Hanumān Chalisā Week 5 — Spiritual Stream",
+  "id": "v007",
+  "title": "Chaupai 3 — Mahavir Vikram Bajrangi",
   "channel": "Badri",
-  "type": "Stream",
-  "youtubeId": "dQw4w9WgXcQ",
-  "date": "2026-02-14",
+  "type": "Chaupai",
+  "youtubeId": "abc123XYZ",
+  "date": "2026-02-07",
   "featured": false
 }
 ```
+3. The `youtubeId` is from `youtube.com/watch?v=abc123XYZ`
 
 ### 🎵 Mark a Chaupai as released
 1. Open `data/chalisa.json`
-2. Find the Chaupai number
-3. Change `"released": false` to `"released": true`
-4. Add the `youtubeId` for that verse
-5. Submit pull request
+2. Find the chaupai number, set `"released": true` and add the `youtubeId`
 
-### 🏢 Add a new partner organization
+### 🏢 Add a partner organization
 1. Open `data/organizations.json`
-2. Add a new entry:
+2. Add:
 ```json
-{ "name": "Your Org Name", "city": "City, IL", "type": "Partner", "participation": "Sankalpa Sahayog", "confirmed": true }
+{ "name": "Your Org", "city": "City, IL", "type": "Partner", "participation": "Sankalpa Sahayog", "confirmed": true }
 ```
 
-### 📅 Update the schedule
-Edit `data/schedule.json` — one object per activity.
+### 🖼 Add logo images
+Download these two images and save to `assets/`:
+- **logo.jpg** — from https://vayuputra.org/wp-content/uploads/2026/05/logo.jpeg
+- **cm75.jpg** — from https://vayuputra.org/wp-content/uploads/2026/05/75-years.jpeg
 
 ---
 
-## 📱 Making it Downloadable on iPhone & Android
+## Deploying to GitHub Pages (Free)
 
-### Option A — Add to Home Screen (Free, works now)
-1. Host on Netlify or GitHub Pages (free)
-2. Share the link
-3. Users open in Safari (iPhone) or Chrome (Android)
-4. Tap Share → "Add to Home Screen"
-5. App icon appears on their phone — works offline too
-
-### Option B — App Store & Google Play (Paid)
-Requires wrapping with **Capacitor** (free framework):
 ```bash
-npm install @capacitor/core @capacitor/cli
-npx cap init
-npx cap add ios
-npx cap add android
-npx cap sync
+# In your repo Settings → Pages
+# Source: Deploy from branch → main → / (root)
+# Your site: vedantastreams.github.io/Vayuputra
 ```
-Then submit to:
-- Apple App Store: $99/year developer account
-- Google Play: $25 one-time fee
+
+With `CNAME` file already in the repo, adding DNS records (below) connects vayuputra.org.
+
+## Deploying to Netlify (Free, Faster, Recommended)
+
+1. Go to [netlify.com](https://netlify.com) → New site from Git
+2. Connect GitHub → select `VedantaStreams/Vayuputra`
+3. Build command: *(leave empty)*  |  Publish directory: `/`
+4. Click **Deploy** — live at `vayuputra.netlify.app` in ~60 seconds
 
 ---
 
-## 🔄 GitHub Workflow for Team
+## Connecting vayuputra.org Custom Domain
 
+### Step 1 — Add domain in Netlify (or GitHub Pages)
+- Netlify: Site settings → Domain management → Add custom domain → `vayuputra.org`
+- GitHub Pages: Settings → Pages → Custom domain → `vayuputra.org`
+
+### Step 2 — Add DNS records at your domain registrar
+Log in to wherever vayuputra.org is registered (GoDaddy, Namecheap, etc.) and add:
+
+**For Netlify:**
 ```
-1. Fork this repo (or clone if you have write access)
-2. Make your changes (edit a JSON file)
-3. Submit a Pull Request
-4. Repo owner (vedantastreams admin) reviews and merges
-5. Netlify auto-deploys — live in ~60 seconds
+Type  Name    Value
+A     @       75.2.60.5
+CNAME www     vayuputra.netlify.app
 ```
 
-### Team Roles
-| Role | What they edit | Time needed |
-|------|---------------|-------------|
+**For GitHub Pages:**
+```
+Type  Name    Value
+A     @       185.199.108.153
+A     @       185.199.109.153
+A     @       185.199.110.153
+A     @       185.199.111.153
+CNAME www     vedantastreams.github.io
+```
+
+### Step 3 — Enable HTTPS
+Both Netlify and GitHub Pages automatically provision a free SSL certificate. Check the box "Enforce HTTPS" after DNS propagates (~24 hrs).
+
+---
+
+## Push Changes to GitHub
+
+```bash
+# After editing any file:
+git add .
+git commit -m "update: add new video / mark chaupai released"
+git push origin main
+# Netlify auto-deploys in ~60 seconds
+```
+
+---
+
+## Team Workflow
+
+| Role | Edit which file | Time |
+|------|----------------|------|
 | Video updater | `data/videos.json` | 10 min/week |
 | Chalisa tracker | `data/chalisa.json` | 5 min/week |
 | Org coordinator | `data/organizations.json` | As needed |
@@ -124,23 +152,7 @@ Then submit to:
 
 ---
 
-## 🌐 Deployment
-
-### GitHub Pages (Free)
-1. Go to repo Settings → Pages
-2. Source: Deploy from branch → `main` → `/root`
-3. Your app is live at: `vedantastreams.github.io/vayuputra`
-
-### Netlify (Free, faster)
-1. Go to [netlify.com](https://netlify.com) → New site from Git
-2. Connect your GitHub repo
-3. Build command: (leave empty)
-4. Publish directory: `/`
-5. Deploy → live at `vayuputra.netlify.app`
-
----
-
-## 📞 Contact
+## Contact
 - Email: vayuputra@mychinmaya.org
 - Website: vayuputra.org
 - Rajul Bhalala: (847) 302-2383
@@ -149,4 +161,4 @@ Then submit to:
 
 ---
 
-*Jai Hanumān! 🙏 — Chinmaya Mission Chicago*
+*Jai Hanumān! 🙏 — Chinmaya Mission Chicago — © 2026*

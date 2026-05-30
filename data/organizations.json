@@ -1,5 +1,12 @@
 [
-  { "name": "Chinmaya Mission Chicago — Badri", "city": "Chicago, IL", "type": "Host", "participation": "Host Organization", "confirmed": true },
-  { "name": "Chinmaya Mission Chicago — Yamunotri", "city": "Chicago, IL", "type": "Host", "participation": "Host Organization", "confirmed": true },
-  { "name": "Chinmaya Mission Chicago — Gangotri", "city": "Lisle, IL", "type": "Host", "participation": "Host Organization", "confirmed": true }
+  { "name": "Chinmaya Mission Chicago — Badri",       "city": "West Suburbs, IL",    "type": "Host",    "participation": "Host Organization",  "confirmed": true },
+  { "name": "Chinmaya Mission Chicago — Yamunotri",  "city": "North Suburbs, IL",   "type": "Host",    "participation": "Host Organization",  "confirmed": true },
+  { "name": "Chinmaya Mission Chicago — Gangotri",   "city": "Downtown Chicago, IL","type": "Host",    "participation": "Host Organization",  "confirmed": true },
+  { "name": "Hindu Swayamsevak Sangh (HSS)",         "city": "Chicago, IL",          "type": "Partner", "participation": "Sankalpa Sahayog",   "confirmed": true },
+  { "name": "Sewa USA",                              "city": "Chicago, IL",          "type": "Partner", "participation": "Seva Sahayog",       "confirmed": true },
+  { "name": "Science of Spirituality",               "city": "Chicago, IL",          "type": "Partner", "participation": "Sankalpa Sahayog",   "confirmed": true },
+  { "name": "Vishwa Hindu Parishad (VHP)",           "city": "Chicago, IL",          "type": "Partner", "participation": "Sankalpa Sahayog",   "confirmed": true },
+  { "name": "Chinmaya Omkara",                       "city": "NW Indiana",           "type": "Partner", "participation": "Sankalpa Sahayog",   "confirmed": true },
+  { "name": "Chinmaya Milwaukee",                    "city": "Milwaukee, WI",        "type": "Partner", "participation": "Sankalpa Sahayog",   "confirmed": true },
+  { "name": "Chinmaya Hamsavahini",                  "city": "Peoria, IL",           "type": "Partner", "participation": "Sankalpa Sahayog",   "confirmed": true }
 ]

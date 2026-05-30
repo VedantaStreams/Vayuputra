@@ -2,411 +2,581 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#8B1A1A">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6B1212">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Vāyuputra">
-<title>Vāyuputra in Windy City</title>
+<meta name="description" content="Grand Samashti Hanuman Chalisa Havan — July 11, 2026 — DuPage County Fairgrounds, Wheaton IL — Chinmaya Mission Chicago">
+<meta property="og:title" content="Vāyuputra in Windy City">
+<meta property="og:description" content="Grand Samashti Hanuman Chalisa Havan — July 11, 2026">
+<meta property="og:image" content="assets/flyer.png">
+<title>Vāyuputra in Windy City — Samashti Hanuman Chalisa Havan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════ */
 :root {
-  --saffron: #C85A1A;
-  --saffron-light: #E8722A;
-  --crimson: #8B1A1A;
-  --crimson-deep: #6B1212;
-  --gold: #C8920A;
-  --gold-light: #E8B020;
-  --cream: #FDF6EE;
-  --cream-dark: #F5EBD8;
-  --warm-white: #FEFAF5;
-  --text-dark: #2C1810;
-  --text-mid: #5C3820;
-  --text-light: #8B6B50;
-  --green-success: #2D6A2D;
-  --border: rgba(200,90,26,0.15);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html { font-size: 16px; }
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--cream);
-  color: var(--text-dark);
-  min-height: 100vh;
-  overflow-x: hidden;
+  --crimson:      #6B1212;
+  --crimson-mid:  #8B1A1A;
+  --crimson-lt:   #A82020;
+  --saffron:      #C85A1A;
+  --saffron-lt:   #E87030;
+  --gold:         #C8920A;
+  --gold-lt:      #E8B020;
+  --gold-pale:    #F5D060;
+  --cream:        #FDF6EE;
+  --cream-dk:     #F5EBD8;
+  --warm-white:   #FEFAF5;
+  --text-dk:      #1E0A00;
+  --text-mid:     #4A2810;
+  --text-lt:      #7A5030;
+  --text-muted:   #A07050;
+  --border:       rgba(200,90,26,0.15);
+  --border-gold:  rgba(200,146,10,0.3);
+  --green:        #1A5A1A;
+  --overlay:      rgba(30,8,0,0.72);
+  --overlay-lt:   rgba(30,8,0,0.45);
+  --shadow:       0 4px 24px rgba(107,18,18,0.18);
+  --shadow-lg:    0 8px 48px rgba(107,18,18,0.25);
+  --r:            10px;
+  --r-lg:         16px;
+  --font-head:    'Cinzel', Georgia, serif;
+  --font-body:    'Crimson Pro', Georgia, serif;
+  --font-alt:     'Cormorant Garamond', Georgia, serif;
 }
 
-/* ── SPLASH / LOADING ── */
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream); color: var(--text-dk); min-height: 100vh; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ═══════════════════════════════════════════════════
+   SPLASH SCREEN
+═══════════════════════════════════════════════════ */
 #splash {
   position: fixed; inset: 0; z-index: 9999;
-  background: var(--crimson);
+  background: radial-gradient(ellipse at center, var(--crimson-mid) 0%, var(--crimson) 60%, #3A0808 100%);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.8s ease;
 }
 #splash.fade { opacity: 0; pointer-events: none; }
-.splash-om { font-size: 64px; margin-bottom: 16px; animation: pulse 1.5s ease-in-out infinite; }
-.splash-title { font-family: 'Cinzel', serif; color: #E8B020; font-size: 20px; font-weight: 600; letter-spacing: 2px; text-align: center; }
-.splash-sub { color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 6px; font-family: 'Crimson Pro', serif; font-style: italic; }
-@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+.splash-om { font-size: 72px; animation: pulse-om 2s ease-in-out infinite; margin-bottom: 20px; }
+.splash-title { font-family: var(--font-head); color: var(--gold-lt); font-size: 22px; font-weight: 700; letter-spacing: 3px; text-align: center; }
+.splash-sub { color: rgba(255,255,255,0.65); font-size: 14px; margin-top: 8px; font-family: var(--font-body); font-style: italic; }
+.splash-dot-row { display: flex; gap: 8px; margin-top: 24px; }
+.splash-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-lt); animation: blink 1.4s ease-in-out infinite; }
+.splash-dot:nth-child(2) { animation-delay: 0.2s; }
+.splash-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse-om { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:0.85} }
+@keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
 
-/* ── APP SHELL ── */
-#app { display: flex; flex-direction: column; min-height: 100vh; max-width: 480px; margin: 0 auto; background: var(--warm-white); box-shadow: 0 0 40px rgba(0,0,0,0.15); }
-
-/* ── TOP HEADER ── */
-.app-header {
+/* ═══════════════════════════════════════════════════
+   DESKTOP HEADER
+═══════════════════════════════════════════════════ */
+.site-header {
+  display: none; /* shown on desktop via media query */
+  position: sticky; top: 0; z-index: 200;
   background: var(--crimson);
-  padding: 12px 16px 10px;
-  display: flex; align-items: center; gap: 10px;
-  position: sticky; top: 0; z-index: 100;
+  border-bottom: 2px solid var(--gold);
+  padding: 0 40px;
+  height: 64px;
+  align-items: center;
+  justify-content: space-between;
 }
-.header-logos { display: flex; align-items: center; gap: 8px; }
-.logo-circle {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
-}
-.header-text { flex: 1; }
-.header-text h1 { font-family: 'Cinzel', serif; color: #E8B020; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; line-height: 1.2; }
-.header-text p { color: rgba(255,255,255,0.7); font-size: 10px; margin-top: 1px; font-family: 'Crimson Pro', serif; font-style: italic; }
-.amrit-badge {
-  background: rgba(232,176,32,0.2);
-  border: 1px solid rgba(232,176,32,0.4);
-  border-radius: 6px; padding: 4px 8px; text-align: center; flex-shrink: 0;
-}
-.amrit-badge .num { font-family: 'Cinzel', serif; color: #E8B020; font-size: 16px; font-weight: 700; line-height: 1; }
-.amrit-badge .txt { color: rgba(255,255,255,0.7); font-size: 8px; letter-spacing: 0.5px; display: block; }
+.site-header-logo { display: flex; align-items: center; gap: 12px; }
+.site-header-logo img { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--border-gold); object-fit: cover; }
+.site-header-logo span { font-family: var(--font-head); color: var(--gold-lt); font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
+.site-nav { display: flex; gap: 28px; }
+.site-nav a { font-family: var(--font-head); color: rgba(255,255,255,0.75); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+.site-nav a:hover { color: var(--gold-lt); }
+.site-nav .nav-cta { background: var(--gold); color: var(--crimson); padding: 7px 16px; border-radius: var(--r); font-size: 11px; font-weight: 700; }
+.site-nav .nav-cta:hover { background: var(--gold-lt); color: var(--crimson); }
 
-/* ── MAIN CONTENT ── */
-.screens { flex: 1; overflow: hidden; }
-.screen { display: none; overflow-y: auto; height: calc(100vh - 110px); }
+/* ═══════════════════════════════════════════════════
+   MOBILE HEADER
+═══════════════════════════════════════════════════ */
+.mobile-header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--crimson);
+  border-bottom: 2px solid var(--gold);
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.mobile-header-logo { display: flex; align-items: center; gap: 8px; }
+.mobile-header-logo img { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--border-gold); object-fit: cover; }
+.mobile-header-text { flex: 1; }
+.mobile-header-text h1 { font-family: var(--font-head); color: var(--gold-lt); font-size: 12px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2; }
+.mobile-header-text p { color: rgba(255,255,255,0.65); font-size: 10px; font-style: italic; margin-top: 1px; }
+.mobile-header-badge { background: rgba(200,146,10,0.2); border: 1px solid var(--border-gold); border-radius: 8px; padding: 4px 8px; text-align: center; flex-shrink: 0; }
+.mobile-header-badge .badge-num { font-family: var(--font-head); color: var(--gold-lt); font-size: 18px; font-weight: 700; line-height: 1; }
+.mobile-header-badge .badge-txt { color: rgba(255,255,255,0.6); font-size: 7px; letter-spacing: 0.5px; display: block; }
+
+/* ═══════════════════════════════════════════════════
+   MOBILE APP SHELL
+═══════════════════════════════════════════════════ */
+#mobile-app { display: flex; flex-direction: column; min-height: calc(100vh - 60px); }
+.screens-wrap { flex: 1; }
+.screen { display: none; padding-bottom: 72px; }
 .screen.active { display: block; }
 
-/* ── BOTTOM NAV ── */
-.bottom-nav {
-  display: flex; background: var(--crimson);
-  border-top: 2px solid var(--gold);
-  position: sticky; bottom: 0;
-}
-.nav-item {
-  flex: 1; display: flex; flex-direction: column; align-items: center;
-  padding: 8px 4px 10px; cursor: pointer; border: none; background: none;
-  transition: background 0.15s;
-}
-.nav-item:hover { background: rgba(255,255,255,0.08); }
-.nav-item.active { background: rgba(232,176,32,0.15); }
-.nav-icon { font-size: 18px; line-height: 1; }
-.nav-label { font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 3px; letter-spacing: 0.3px; }
-.nav-item.active .nav-label { color: #E8B020; }
-.nav-item.active .nav-icon { filter: drop-shadow(0 0 4px rgba(232,176,32,0.6)); }
+/* ═══════════════════════════════════════════════════
+   DESKTOP LAYOUT
+═══════════════════════════════════════════════════ */
+#desktop-app { display: none; }
 
-/* ── HERO BANNER ── */
+/* ═══════════════════════════════════════════════════
+   HERO — HANUMAN JI BACKGROUND
+═══════════════════════════════════════════════════ */
 .hero {
-  background: linear-gradient(165deg, var(--crimson-deep) 0%, var(--crimson) 40%, var(--saffron) 100%);
-  padding: 24px 20px 20px; text-align: center; position: relative; overflow: hidden;
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  overflow: hidden;
+  background: var(--crimson);
 }
-.hero::before {
-  content: '🕉️';
-  position: absolute; font-size: 180px; opacity: 0.05;
-  top: -20px; right: -20px; line-height: 1;
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('https://vayuputra.org/wp-content/uploads/2026/05/hanuman.png');
+  background-size: cover; background-position: center top;
+  background-repeat: no-repeat;
 }
-.hero-flyer {
-  width: 100%; max-height: 220px; object-fit: cover;
-  border-radius: 12px; margin-bottom: 16px;
-  border: 2px solid rgba(232,176,32,0.4);
+/* Gradient overlay — dark at top/bottom, lighter in middle to show Hanuman ji */
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(30,8,0,0.82) 0%,
+    rgba(30,8,0,0.50) 25%,
+    rgba(30,8,0,0.35) 50%,
+    rgba(30,8,0,0.60) 75%,
+    rgba(30,8,0,0.90) 100%
+  );
 }
-.hero-flyer-placeholder {
-  width: 100%; height: 180px; background: rgba(0,0,0,0.2);
-  border-radius: 12px; margin-bottom: 16px;
-  border: 2px solid rgba(232,176,32,0.3);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 8px;
-}
-.hero-flyer-placeholder span { font-size: 40px; }
-.hero-flyer-placeholder p { color: rgba(255,255,255,0.6); font-size: 12px; }
-.hero-title { font-family: 'Cinzel', serif; color: white; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: 0.5px; margin-bottom: 6px; }
-.hero-subtitle { font-family: 'Crimson Pro', serif; font-style: italic; color: #E8B020; font-size: 15px; margin-bottom: 14px; }
-.hero-info-bar {
-  background: rgba(0,0,0,0.25); border-radius: 8px;
-  padding: 10px 14px; margin-bottom: 10px;
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px; flex-wrap: wrap;
-}
-.hero-info-bar span { color: white; font-size: 12px; }
-.hero-info-bar .dot { color: #E8B020; }
-.presider-line {
-  background: rgba(232,176,32,0.15); border: 1px solid rgba(232,176,32,0.3);
-  border-radius: 8px; padding: 8px 12px; margin-bottom: 16px;
-}
-.presider-line p { color: rgba(255,255,255,0.9); font-size: 14px; line-height: 1.2; font-family: 'Crimson Pro', serif; }
-.presider-line strong { color: #E8B020; font-size: 24px; display: block; margin-bottom: 1px; font-family: 'Cinzel', serif; letter-spacing: 0.3px; }
-.presider-line .subtitle { font-size: 13px; color: rgba(255,255,255,0.85); font-style: italic; }
+.hero-content { position: relative; z-index: 2; width: 100%; padding: 20px 20px 24px; text-align: center; }
 
-/* ── LIVE COUNTERS ── */
-.counters {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+/* Swamiji — large, prominent */
+.swamiji-block { margin-bottom: 18px; }
+.swamiji-label { font-family: var(--font-alt); color: rgba(255,255,255,0.8); font-size: 14px; letter-spacing: 2px; font-style: italic; margin-bottom: 4px; }
+.swamiji-name {
+  font-family: var(--font-head);
+  color: var(--gold-lt);
+  font-size: clamp(22px, 6vw, 38px);
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.15;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+.swamiji-title { color: rgba(255,255,255,0.75); font-size: 13px; font-style: italic; margin-top: 3px; font-family: var(--font-body); }
+
+/* Om divider */
+.om-divider { color: var(--gold); font-size: 18px; letter-spacing: 4px; margin: 10px 0; opacity: 0.8; }
+
+/* Event title */
+.hero-title {
+  font-family: var(--font-head);
+  color: #fff;
+  font-size: clamp(24px, 7vw, 52px);
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  margin-bottom: 6px;
+}
+.hero-subtitle {
+  font-family: var(--font-alt);
+  color: var(--gold-pale);
+  font-size: clamp(14px, 4vw, 22px);
+  font-style: italic;
+  letter-spacing: 0.5px;
   margin-bottom: 16px;
 }
-.counter-box {
-  background: rgba(0,0,0,0.25); border-radius: 10px;
-  border: 1px solid rgba(232,176,32,0.25);
-  padding: 10px 6px; text-align: center;
-}
-.counter-num {
-  font-family: 'Cinzel', serif; color: #E8B020;
-  font-size: 26px; font-weight: 700; line-height: 1;
-  display: block;
-}
-.counter-label { color: rgba(255,255,255,0.7); font-size: 9px; margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-.register-btn {
-  display: block; width: 100%;
-  background: linear-gradient(135deg, #E8B020, #C8920A);
-  color: var(--crimson-deep); font-family: 'Cinzel', serif;
+/* Logos row */
+.logos-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 16px; }
+.logos-row img { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--border-gold); object-fit: cover; }
+
+/* Event info pills */
+.hero-info-bar {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
+  margin-bottom: 16px;
+}
+.info-pill {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 6px 14px;
+  color: #fff;
+  font-size: 12px;
+  display: flex; align-items: center; gap: 5px;
+}
+
+/* Live countdown */
+.countdown-strip {
+  display: flex; gap: 0; background: rgba(0,0,0,0.35);
+  border: 1px solid var(--border-gold); border-radius: var(--r);
+  overflow: hidden; margin: 0 auto 18px; max-width: 340px;
+}
+.cd-unit { flex: 1; padding: 10px 6px; text-align: center; border-right: 1px solid rgba(200,146,10,0.2); }
+.cd-unit:last-child { border-right: none; }
+.cd-num { font-family: var(--font-head); color: var(--gold-lt); font-size: 28px; font-weight: 700; display: block; line-height: 1; }
+.cd-lbl { color: rgba(255,255,255,0.6); font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-top: 3px; }
+
+/* Stats row */
+.hero-stats { display: flex; gap: 0; margin-bottom: 18px; }
+.stat-pill {
+  flex: 1;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border-gold);
+  padding: 8px 4px; text-align: center;
+}
+.stat-pill:first-child { border-radius: var(--r) 0 0 var(--r); }
+.stat-pill:last-child { border-radius: 0 var(--r) var(--r) 0; }
+.stat-pill:not(:first-child) { border-left: none; }
+.stat-num { font-family: var(--font-head); color: var(--gold-lt); font-size: 18px; font-weight: 700; }
+.stat-lbl { color: rgba(255,255,255,0.55); font-size: 8px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+/* CTA buttons */
+.cta-group { display: flex; flex-direction: column; gap: 10px; }
+.btn-primary {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold));
+  color: var(--crimson); font-family: var(--font-head);
   font-size: 14px; font-weight: 700; letter-spacing: 1px;
-  border: none; border-radius: 10px; padding: 14px;
-  cursor: pointer; text-align: center; text-decoration: none;
+  border: none; border-radius: var(--r); padding: 14px 24px;
+  cursor: pointer; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 20px rgba(200,146,10,0.4);
 }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(200,146,10,0.5); }
+.btn-row { display: flex; gap: 8px; }
+.btn-secondary {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
+  color: #fff; font-family: var(--font-head); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.8px; border-radius: var(--r); padding: 10px 8px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.2); }
 
-/* ── SECTION CARDS ── */
-.section-title {
-  font-family: 'Cinzel', serif; color: var(--crimson);
-  font-size: 13px; font-weight: 600; letter-spacing: 1px;
-  text-transform: uppercase; padding: 16px 16px 8px;
-  border-bottom: 1px solid var(--border); margin-bottom: 4px;
-}
-.activities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px; }
-.activity-card {
-  background: var(--cream); border: 1px solid var(--border);
-  border-radius: 10px; padding: 12px 10px; text-align: center;
-}
-.activity-icon { font-size: 24px; margin-bottom: 6px; }
-.activity-name { font-size: 12px; font-weight: 600; color: var(--crimson); line-height: 1.3; }
-.activity-desc { font-size: 10px; color: var(--text-light); margin-top: 3px; line-height: 1.4; }
+/* Scroll indicator */
+.scroll-hint { color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 20px; letter-spacing: 1px; animation: bounce 2s ease-in-out infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
-/* ── SCHEDULE SCREEN ── */
-.schedule-list { padding: 8px 16px; }
-.sched-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+/* ═══════════════════════════════════════════════════
+   SECTION BASE
+═══════════════════════════════════════════════════ */
+.section { padding: 40px 20px; }
+.section-alt { background: var(--cream-dk); }
+.section-dark { background: var(--crimson); }
+.section-header { text-align: center; margin-bottom: 32px; }
+.section-eyebrow { font-family: var(--font-head); color: var(--saffron); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+.section-title { font-family: var(--font-head); color: var(--crimson); font-size: clamp(20px, 5vw, 32px); font-weight: 700; line-height: 1.2; }
+.section-dark .section-title { color: var(--gold-lt); }
+.section-rule { width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--saffron)); margin: 12px auto 0; border-radius: 2px; }
+.section-sub { margin-top: 10px; color: var(--text-mid); font-size: 15px; line-height: 1.6; font-style: italic; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+/* ═══════════════════════════════════════════════════
+   ABOUT SECTION
+═══════════════════════════════════════════════════ */
+.about-body { font-size: 16px; color: var(--text-mid); line-height: 1.8; margin-bottom: 16px; }
+.about-body strong { color: var(--crimson); }
+.why-chant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+.why-card {
+  background: var(--warm-white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px 14px;
+  border-left: 3px solid var(--saffron);
+}
+.why-card h4 { font-family: var(--font-head); color: var(--crimson); font-size: 13px; margin-bottom: 5px; }
+.why-card p { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+/* ═══════════════════════════════════════════════════
+   EVENT DETAILS
+═══════════════════════════════════════════════════ */
+.details-grid { display: grid; gap: 12px; }
+.detail-card {
+  background: var(--warm-white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px; display: flex; gap: 14px; align-items: flex-start;
+}
+.detail-icon { font-size: 28px; flex-shrink: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--cream-dk); border-radius: var(--r); }
+.detail-info h4 { font-family: var(--font-head); color: var(--crimson); font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.detail-info p { font-size: 14px; color: var(--text-mid); line-height: 1.5; }
+.detail-info a { color: var(--saffron); }
+.bring-list { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+.bring-item { display: flex; gap: 10px; align-items: center; padding: 8px 12px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); font-size: 14px; color: var(--text-mid); }
+.bring-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════
+   SCHEDULE
+═══════════════════════════════════════════════════ */
+.schedule-phase { margin-bottom: 24px; }
+.phase-label { font-family: var(--font-head); font-size: 10px; font-weight: 600; letter-spacing: 2px; color: var(--saffron); text-transform: uppercase; margin-bottom: 12px; padding-left: 2px; }
+.sched-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
 .sched-item:last-child { border-bottom: none; }
-.sched-time { font-size: 11px; font-weight: 600; color: var(--saffron); min-width: 58px; padding-top: 2px; font-family: 'Cinzel', serif; }
+.sched-time { font-family: var(--font-head); color: var(--saffron); font-size: 11px; font-weight: 600; min-width: 72px; padding-top: 2px; }
 .sched-icon { font-size: 20px; flex-shrink: 0; }
-.sched-body h4 { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 3px; }
-.sched-body p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
-.sched-cat { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 4px; margin-top: 4px; }
+.sched-body h4 { font-size: 15px; font-weight: 600; color: var(--text-dk); margin-bottom: 3px; }
+.sched-body p { font-size: 13px; color: var(--text-lt); line-height: 1.5; }
+.sched-cat { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-top: 4px; font-family: var(--font-head); letter-spacing: 0.5px; }
 .cat-spiritual { background: #FAE8E0; color: var(--saffron); }
 .cat-cultural { background: #EAF0FA; color: #1A4A8B; }
-.cat-family { background: #EAF5EA; color: var(--green-success); }
+.cat-family { background: #EAF5EA; color: var(--green); }
 
-/* ── VIDEOS SCREEN ── */
-.video-filters { display: flex; gap: 6px; padding: 12px 16px; overflow-x: auto; }
-.video-filters::-webkit-scrollbar { display: none; }
-.filter-pill {
-  flex-shrink: 0; padding: 5px 12px; border-radius: 20px; font-size: 12px;
-  border: 1px solid var(--border); background: var(--cream);
-  color: var(--text-mid); cursor: pointer; white-space: nowrap;
+/* ═══════════════════════════════════════════════════
+   REGISTRATION
+═══════════════════════════════════════════════════ */
+.reg-options { display: grid; gap: 10px; }
+.reg-card {
+  background: var(--warm-white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px; display: flex; justify-content: space-between; align-items: flex-start;
 }
-.filter-pill.active { background: var(--saffron); color: white; border-color: var(--saffron); }
-.videos-list { padding: 0 16px 16px; }
-.video-card {
-  border: 1px solid var(--border); border-radius: 10px;
-  overflow: hidden; margin-bottom: 10px; background: var(--cream);
-}
-.video-thumb {
-  width: 100%; height: 180px; background: var(--crimson-deep);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; cursor: pointer;
-}
-.video-thumb iframe { width: 100%; height: 100%; border: none; }
-.video-thumb-placeholder {
-  width: 100%; height: 180px;
-  background: linear-gradient(135deg, var(--crimson-deep), var(--crimson));
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  cursor: pointer;
-}
-.play-btn {
-  width: 48px; height: 48px; border-radius: 50%;
-  background: var(--saffron); display: flex; align-items: center; justify-content: center;
-}
-.play-tri { width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 18px solid white; margin-left: 4px; }
-.video-info { padding: 10px 12px; }
-.video-info h4 { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; line-height: 1.4; }
-.ch-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-right: 4px; }
-.ch-badri { background: #FAEAE0; color: #8B2A1A; }
-.ch-yamunotri { background: #E0EAF5; color: #1A3A7A; }
-.ch-gangotri { background: #E0F0E8; color: #1A5A30; }
-.type-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; background: var(--cream-dark); color: var(--text-light); }
+.reg-card.featured { border-color: var(--gold); border-width: 2px; background: #FFFBF0; }
+.reg-label { font-size: 10px; font-family: var(--font-head); color: var(--gold); letter-spacing: 1px; margin-bottom: 3px; }
+.reg-card h4 { font-family: var(--font-head); color: var(--crimson); font-size: 14px; margin-bottom: 4px; }
+.reg-card p { font-size: 13px; color: var(--text-mid); line-height: 1.4; max-width: 220px; }
+.reg-price { font-family: var(--font-head); color: var(--saffron); font-size: 18px; font-weight: 700; text-align: right; flex-shrink: 0; }
+.reg-price.free { color: var(--green); font-size: 15px; }
+.reg-cta-wrap { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+.btn-reg { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--crimson); color: #fff; font-family: var(--font-head); font-size: 14px; font-weight: 700; letter-spacing: 1px; border: none; border-radius: var(--r); padding: 15px; cursor: pointer; text-decoration: none; }
+.btn-volunteer { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--cream); color: var(--crimson); border: 1.5px solid var(--crimson); font-family: var(--font-head); font-size: 13px; font-weight: 600; border-radius: var(--r); padding: 13px; cursor: pointer; text-decoration: none; }
 
-/* ── CHALISA SCREEN ── */
-.chalisa-intro { padding: 14px 16px; background: var(--cream); border-bottom: 1px solid var(--border); }
-.chalisa-intro p { font-family: 'Crimson Pro', serif; font-size: 14px; color: var(--text-mid); line-height: 1.6; }
-.chalisa-progress { margin-top: 10px; }
-.progress-bar { height: 6px; background: var(--cream-dark); border-radius: 3px; overflow: hidden; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--saffron), var(--gold)); border-radius: 3px; transition: width 0.5s; }
-.progress-text { font-size: 11px; color: var(--text-light); margin-top: 4px; }
-.chalisa-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 14px 16px; }
+/* ═══════════════════════════════════════════════════
+   CHALISA
+═══════════════════════════════════════════════════ */
+.chalisa-intro { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
+.progress-wrap { margin-bottom: 16px; }
+.progress-bar { height: 8px; background: var(--cream-dk); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--saffron), var(--gold)); border-radius: 4px; transition: width 0.6s ease; }
+.progress-lbl { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+.chalisa-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 16px; }
 .chaupai-tile {
   border-radius: 8px; padding: 8px 4px; text-align: center;
   cursor: pointer; transition: transform 0.15s;
   border: 1px solid transparent;
 }
 .chaupai-tile:active { transform: scale(0.95); }
-.chaupai-tile.released {
-  background: linear-gradient(135deg, #1A5A30, #2D8A4A);
-  border-color: rgba(255,255,255,0.2);
-}
-.chaupai-tile.upcoming {
-  background: var(--cream-dark);
-  border-color: var(--border);
-}
-.tile-num { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; display: block; }
-.released .tile-num { color: white; }
-.upcoming .tile-num { color: var(--text-light); }
+.chaupai-tile.done { background: linear-gradient(135deg, #1A5A30, #2D8A4A); border-color: rgba(255,255,255,0.2); }
+.chaupai-tile.soon { background: var(--cream-dk); border-color: var(--border); }
+.tile-num { font-family: var(--font-head); font-size: 15px; font-weight: 700; display: block; }
+.done .tile-num { color: #fff; }
+.soon .tile-num { color: var(--text-muted); }
 .tile-lbl { font-size: 8px; display: block; margin-top: 2px; }
-.released .tile-lbl { color: rgba(255,255,255,0.8); }
-.upcoming .tile-lbl { color: var(--text-light); opacity: 0.6; }
+.done .tile-lbl { color: rgba(255,255,255,0.8); }
+.soon .tile-lbl { color: var(--text-muted); opacity: 0.6; }
+.chalisa-text-preview {
+  background: var(--cream-dk); border-radius: var(--r); padding: 16px;
+  border-left: 3px solid var(--gold); margin-top: 8px;
+}
+.chalisa-verse-hindi { font-family: var(--font-body); font-size: 16px; color: var(--crimson); line-height: 1.9; text-align: center; margin-bottom: 6px; }
+.chalisa-verse-roman { font-size: 12px; color: var(--text-muted); text-align: center; font-style: italic; line-height: 1.7; }
 
-/* ── SEVA SCREEN ── */
-.seva-section { padding: 0 16px 16px; }
-.seva-group { margin-bottom: 16px; }
+/* ═══════════════════════════════════════════════════
+   SEVA / SPONSORS
+═══════════════════════════════════════════════════ */
 .seva-group-title {
-  font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600;
-  color: var(--crimson); text-transform: uppercase; letter-spacing: 1px;
-  padding: 10px 0 6px; border-bottom: 1px solid var(--border); margin-bottom: 8px;
+  font-family: var(--font-head); font-size: 10px; font-weight: 600;
+  color: var(--crimson); text-transform: uppercase; letter-spacing: 1.5px;
+  padding: 10px 0 8px; border-bottom: 1px solid var(--border); margin-bottom: 8px;
 }
-.seva-row {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  padding: 10px 12px; border: 1px solid var(--border);
-  border-radius: 8px; margin-bottom: 6px; background: var(--cream);
-}
-.seva-info h5 { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
-.seva-info p { font-size: 11px; color: var(--text-light); line-height: 1.4; max-width: 220px; }
-.seva-amount { font-size: 15px; font-weight: 700; color: var(--saffron); white-space: nowrap; padding-top: 2px; }
-.seva-amount.free { color: var(--green-success); font-size: 13px; }
-.org-card {
-  border: 1px solid var(--border); border-radius: 10px;
-  padding: 12px 14px; margin-bottom: 8px; background: var(--cream);
-}
-.org-card h4 { font-size: 13px; font-weight: 600; color: var(--crimson); margin-bottom: 4px; }
-.org-card p { font-size: 12px; color: var(--text-light); line-height: 1.5; }
-.org-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 6px; margin-top: 6px; background: #EAF5EA; color: var(--green-success); font-weight: 500; }
+.seva-row { display: flex; align-items: flex-start; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; background: var(--warm-white); }
+.seva-info h5 { font-size: 13px; font-weight: 600; color: var(--text-dk); margin-bottom: 2px; }
+.seva-info p { font-size: 12px; color: var(--text-lt); line-height: 1.4; max-width: 210px; }
+.seva-price { font-family: var(--font-head); color: var(--saffron); font-size: 15px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+.seva-price.free { color: var(--green); font-size: 13px; font-weight: 600; }
+.org-seva-card { background: var(--cream); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; margin-bottom: 8px; }
+.org-seva-card h4 { font-family: var(--font-head); color: var(--crimson); font-size: 13px; margin-bottom: 5px; }
+.org-seva-card p { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+.org-badge { display: inline-block; font-size: 11px; padding: 2px 10px; border-radius: 6px; margin-top: 8px; background: #EAF5EA; color: var(--green); font-weight: 600; }
 
-/* ── MORE SCREEN ── */
-.more-list { padding: 8px 16px; }
-.more-item {
-  display: flex; align-items: center; gap: 14px;
-  padding: 14px 0; border-bottom: 1px solid var(--border); cursor: pointer;
+/* ═══════════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════════ */
+.faq-list { display: flex; flex-direction: column; gap: 2px; }
+.faq-item { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--warm-white); }
+.faq-q {
+  width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 14px 16px; background: none; border: none; cursor: pointer;
+  font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--crimson);
+  text-align: left;
 }
-.more-item:last-child { border-bottom: none; }
-.more-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-.more-text h4 { font-size: 14px; font-weight: 600; color: var(--text-dark); }
-.more-text p { font-size: 12px; color: var(--text-light); margin-top: 2px; }
-.more-arrow { margin-left: auto; color: var(--text-light); font-size: 18px; }
+.faq-q .chevron { font-size: 14px; color: var(--saffron); flex-shrink: 0; transition: transform 0.25s; }
+.faq-item.open .chevron { transform: rotate(180deg); }
+.faq-a { display: none; padding: 0 16px 14px; font-size: 14px; color: var(--text-mid); line-height: 1.7; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 0; }
+.faq-item.open .faq-a { display: block; }
 
-/* ── VENUE SCREEN ── */
-.venue-card { margin: 12px 16px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-.venue-map-placeholder {
-  width: 100%; height: 200px;
-  background: linear-gradient(135deg, #e8f0e8, #d0e8d0);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 8px;
-}
-.venue-map-placeholder span { font-size: 40px; }
-.venue-map-placeholder p { font-size: 13px; color: var(--text-mid); }
-.venue-details { padding: 14px; }
-.venue-details h3 { font-family: 'Cinzel', serif; color: var(--crimson); font-size: 15px; margin-bottom: 4px; }
-.venue-details p { font-size: 13px; color: var(--text-mid); line-height: 1.5; margin-bottom: 10px; }
-.venue-actions { display: flex; flex-direction: column; gap: 8px; padding: 0 16px 16px; }
-.venue-btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 600;
-  cursor: pointer; border: none; text-decoration: none;
-}
-.btn-primary { background: var(--saffron); color: white; }
-.btn-secondary { background: var(--cream); color: var(--crimson); border: 1px solid var(--border); }
-.parking-note { margin: 0 16px 16px; background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
-.parking-note h4 { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
-.parking-note p { font-size: 12px; color: var(--text-light); line-height: 1.6; }
-
-/* ── CONTACTS ── */
-.contact-card {
-  margin: 8px 16px; border: 1px solid var(--border);
-  border-radius: 10px; padding: 14px; background: var(--cream);
-  display: flex; align-items: flex-start; gap: 12px;
-}
-.contact-avatar {
-  width: 42px; height: 42px; border-radius: 50%;
-  background: var(--crimson); display: flex; align-items: center; justify-content: center;
-  font-family: 'Cinzel', serif; color: #E8B020; font-size: 15px; font-weight: 700; flex-shrink: 0;
-}
-.contact-info { flex: 1; }
-.contact-info h4 { font-size: 14px; font-weight: 600; color: var(--text-dark); }
-.contact-info p { font-size: 12px; color: var(--text-light); margin-top: 2px; }
-.contact-actions { display: flex; gap: 6px; margin-top: 8px; }
-.contact-btn {
-  flex: 1; padding: 7px; border-radius: 6px; font-size: 12px; font-weight: 500;
-  text-align: center; text-decoration: none; border: 1px solid var(--border);
+/* ═══════════════════════════════════════════════════
+   GALLERY / VIDEOS
+═══════════════════════════════════════════════════ */
+.video-filter-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 14px; }
+.video-filter-row::-webkit-scrollbar { display: none; }
+.vfpill { padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--cream); color: var(--text-mid); font-size: 12px; cursor: pointer; white-space: nowrap; }
+.vfpill.on { background: var(--saffron); color: #fff; border-color: var(--saffron); }
+.videos-grid { display: flex; flex-direction: column; gap: 10px; }
+.video-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+.video-thumb-wrap { width: 100%; height: 180px; background: var(--crimson); position: relative; cursor: pointer; }
+.video-thumb-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+.video-placeholder {
+  width: 100%; height: 180px;
+  background: linear-gradient(135deg, var(--crimson), var(--saffron));
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
   cursor: pointer;
 }
-.btn-call { background: var(--saffron); color: white; border-color: var(--saffron); }
-.btn-email { background: var(--cream); color: var(--crimson); }
+.play-btn { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; }
+.play-tri { width: 0; height: 0; border-top: 11px solid transparent; border-bottom: 11px solid transparent; border-left: 20px solid white; margin-left: 4px; }
+.video-meta { padding: 10px 14px; }
+.video-meta h4 { font-size: 14px; font-weight: 600; color: var(--text-dk); margin-bottom: 5px; line-height: 1.4; }
+.ch-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-right: 4px; }
+.ch-badri { background: #FAE8E0; color: #8B2A1A; }
+.ch-yamunotri { background: #E0EAF5; color: #1A3A7A; }
+.ch-gangotri { background: #E0F0E8; color: var(--green); }
+.type-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; background: var(--cream-dk); color: var(--text-muted); }
 
-/* ── ORGS SCREEN ── */
-.org-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px; }
-.org-stat-box { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; }
-.org-stat-num { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: var(--crimson); }
-.org-stat-label { font-size: 11px; color: var(--text-light); margin-top: 3px; }
-.org-list { padding: 0 16px 16px; }
-.org-list-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-.org-list-item:last-child { border-bottom: none; }
-.org-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--saffron); flex-shrink: 0; }
-.org-list-info h5 { font-size: 13px; font-weight: 600; color: var(--text-dark); }
-.org-list-info p { font-size: 11px; color: var(--text-light); margin-top: 1px; }
-.org-type-badge { margin-left: auto; font-size: 10px; padding: 2px 7px; border-radius: 4px; background: #FAE8E0; color: var(--saffron); flex-shrink: 0; }
+/* ═══════════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════════ */
+.contact-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: var(--r); padding: 16px; margin-bottom: 10px; display: flex; gap: 12px; align-items: flex-start; }
+.contact-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--crimson); color: var(--gold-lt); font-family: var(--font-head); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.contact-info { flex: 1; }
+.contact-info h4 { font-size: 15px; font-weight: 600; color: var(--text-dk); margin-bottom: 2px; }
+.contact-info p { font-size: 13px; color: var(--text-lt); }
+.contact-actions { display: flex; gap: 6px; margin-top: 8px; }
+.btn-call { flex: 1; padding: 7px; border-radius: 6px; font-size: 12px; font-weight: 600; text-align: center; text-decoration: none; background: var(--saffron); color: #fff; }
+.btn-email { flex: 1; padding: 7px; border-radius: 6px; font-size: 12px; font-weight: 600; text-align: center; text-decoration: none; background: var(--cream); color: var(--crimson); border: 1px solid var(--border); }
+.social-links { display: flex; gap: 10px; margin-top: 14px; }
+.social-link { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; border: 1px solid var(--border); border-radius: var(--r); background: var(--warm-white); font-size: 13px; color: var(--text-mid); font-weight: 500; text-decoration: none; }
+.social-link:hover { background: var(--cream-dk); }
 
-/* ── REGISTER SCREEN ── */
-.register-hero { background: linear-gradient(135deg, var(--crimson), var(--saffron)); padding: 20px 16px; text-align: center; }
-.register-hero h2 { font-family: 'Cinzel', serif; color: white; font-size: 18px; margin-bottom: 6px; }
-.register-hero p { color: rgba(255,255,255,0.8); font-size: 13px; font-family: 'Crimson Pro', serif; font-style: italic; }
-.register-form-wrap { padding: 16px; }
-.form-group { margin-bottom: 14px; }
-.form-label { font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 5px; display: block; }
-.form-input {
-  width: 100%; padding: 11px 14px; border-radius: 8px;
-  border: 1px solid var(--border); background: var(--cream);
-  font-size: 14px; color: var(--text-dark); font-family: 'Inter', sans-serif;
-  outline: none; transition: border-color 0.2s;
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+footer {
+  background: var(--crimson);
+  padding: 24px 20px;
+  text-align: center;
+  border-top: 2px solid var(--gold);
 }
+footer .footer-logo { font-family: var(--font-head); color: var(--gold-lt); font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+footer .footer-sub { color: rgba(255,255,255,0.6); font-size: 12px; font-style: italic; margin-bottom: 12px; }
+footer .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+footer .footer-links a { color: rgba(255,255,255,0.6); font-size: 12px; }
+footer .footer-links a:hover { color: var(--gold-lt); }
+footer .copyright { color: rgba(255,255,255,0.35); font-size: 11px; margin-top: 12px; }
+
+/* ═══════════════════════════════════════════════════
+   MORE SCREEN (mobile sub-nav)
+═══════════════════════════════════════════════════ */
+.more-list { padding: 8px 0; }
+.more-row { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--border); cursor: pointer; }
+.more-row:hover { background: var(--cream); }
+.more-icon { width: 42px; height: 42px; border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.more-text h4 { font-size: 14px; font-weight: 600; color: var(--text-dk); }
+.more-text p { font-size: 12px; color: var(--text-lt); margin-top: 1px; }
+.more-arrow { margin-left: auto; color: var(--text-muted); font-size: 20px; }
+
+/* Sub-screen back button */
+.subscreen-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--warm-white); position: sticky; top: 60px; z-index: 50; }
+.back-btn { background: none; border: none; font-size: 26px; cursor: pointer; color: var(--crimson); line-height: 1; }
+.subscreen-title { font-family: var(--font-head); font-size: 14px; font-weight: 600; color: var(--crimson); }
+
+/* Venue */
+.map-placeholder { width: 100%; height: 200px; background: linear-gradient(135deg, #d8e8d0, #c0d8c0); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+.map-placeholder span { font-size: 40px; }
+.map-placeholder p { font-size: 13px; color: var(--text-mid); }
+.venue-details { padding: 14px 16px; }
+.venue-details h3 { font-family: var(--font-head); color: var(--crimson); font-size: 16px; margin-bottom: 4px; }
+.venue-details p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+.parking-card { margin: 12px 16px; background: var(--cream); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
+.parking-card h4 { font-family: var(--font-head); font-size: 13px; color: var(--crimson); margin-bottom: 8px; }
+.parking-card p { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+/* Register sub-screen */
+.reg-hero-bar { background: linear-gradient(135deg, var(--crimson), var(--saffron)); padding: 20px 16px; text-align: center; }
+.reg-hero-bar h2 { font-family: var(--font-head); color: #fff; font-size: 18px; margin-bottom: 4px; }
+.reg-hero-bar p { color: rgba(255,255,255,0.8); font-size: 13px; font-style: italic; }
+.form-wrap { padding: 16px; }
+.form-group { margin-bottom: 14px; }
+.form-label { font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 5px; display: block; font-family: var(--font-head); }
+.form-input { width: 100%; padding: 11px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--cream); font-size: 14px; color: var(--text-dk); font-family: var(--font-body); outline: none; transition: border-color 0.2s; }
 .form-input:focus { border-color: var(--saffron); }
 select.form-input { appearance: none; }
-.form-submit {
-  width: 100%; padding: 14px; background: var(--crimson);
-  color: white; font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600;
-  letter-spacing: 1px; border: none; border-radius: 10px; cursor: pointer; margin-top: 4px;
-}
-.form-note { font-size: 11px; color: var(--text-light); text-align: center; margin-top: 10px; line-height: 1.5; }
-.success-msg {
-  display: none; background: #EAF5EA; border: 1px solid #90D890;
-  border-radius: 10px; padding: 16px; text-align: center; margin-top: 12px;
-}
-.success-msg h4 { color: var(--green-success); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-.success-msg p { color: var(--green-success); font-size: 13px; }
+.form-submit { width: 100%; padding: 14px; background: var(--crimson); color: #fff; font-family: var(--font-head); font-size: 14px; font-weight: 700; letter-spacing: 1px; border: none; border-radius: var(--r); cursor: pointer; }
+.form-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; line-height: 1.6; }
+.success-msg { display: none; background: #EAF5EA; border: 1px solid #90D890; border-radius: var(--r); padding: 16px; text-align: center; margin-top: 14px; }
+.success-msg h4 { color: var(--green); font-size: 16px; font-weight: 600; margin-bottom: 4px; font-family: var(--font-head); }
+.success-msg p { color: var(--green); font-size: 13px; }
 
-/* ── RESOURCES SCREEN ── */
-.resource-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px; border-bottom: 1px solid var(--border);
-  cursor: pointer; text-decoration: none;
+/* ═══════════════════════════════════════════════════
+   BOTTOM NAV (mobile)
+═══════════════════════════════════════════════════ */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+  display: flex; background: var(--crimson);
+  border-top: 2px solid var(--gold);
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
-.resource-item:hover { background: var(--cream); }
-.resource-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-.resource-text h4 { font-size: 13px; font-weight: 600; color: var(--text-dark); }
-.resource-text p { font-size: 11px; color: var(--text-light); margin-top: 2px; }
-.resource-arrow { margin-left: auto; color: var(--text-light); }
+.nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 7px 4px 8px; cursor: pointer; border: none; background: none; transition: background 0.15s; }
+.nav-btn:hover { background: rgba(255,255,255,0.08); }
+.nav-btn.on { background: rgba(232,176,32,0.12); }
+.nav-icon { font-size: 20px; line-height: 1; }
+.nav-lbl { font-size: 9px; color: rgba(255,255,255,0.55); margin-top: 3px; letter-spacing: 0.3px; font-family: var(--font-head); }
+.nav-btn.on .nav-lbl { color: var(--gold-lt); }
+.nav-btn.on .nav-icon { filter: drop-shadow(0 0 4px rgba(232,176,32,0.6)); }
 
-/* ── UTILS ── */
-.screen-pad { padding: 0 0 80px; }
+/* ═══════════════════════════════════════════════════
+   ORGS LIST
+═══════════════════════════════════════════════════ */
+.org-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.org-item:last-child { border-bottom: none; }
+.org-dot-large { width: 10px; height: 10px; border-radius: 50%; background: var(--saffron); flex-shrink: 0; }
+.org-item-info h5 { font-size: 14px; font-weight: 600; color: var(--text-dk); }
+.org-item-info p { font-size: 12px; color: var(--text-lt); margin-top: 1px; }
+.org-type-pill { margin-left: auto; font-size: 10px; padding: 3px 10px; border-radius: 12px; background: #FAE8E0; color: var(--saffron); flex-shrink: 0; font-family: var(--font-head); }
+
+/* ═══════════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════════ */
+.pad { padding: 16px; }
+.mt-4 { margin-top: 16px; }
+.link-block { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px; border-radius: var(--r); font-size: 14px; font-weight: 600; text-decoration: none; margin-bottom: 8px; text-align: center; }
+
+/* ═══════════════════════════════════════════════════
+   DESKTOP OVERRIDES (≥768px)
+═══════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .site-header { display: flex; }
+  .mobile-header { display: none; }
+  .bottom-nav { display: none; }
+  #mobile-app { display: none; }
+  #desktop-app { display: block; }
+
+  .hero-content { max-width: 700px; margin: 0 auto; padding: 40px 40px 48px; }
+  .swamiji-name { font-size: 42px; }
+  .hero-title { font-size: 54px; }
+  .cta-group { flex-direction: row; max-width: 600px; margin: 0 auto; }
+  .btn-primary { flex: 1.5; }
+  .btn-row { flex: 1; flex-direction: column; }
+
+  .section { padding: 64px 40px; max-width: 900px; margin: 0 auto; }
+  .why-chant-grid { grid-template-columns: 1fr 1fr; }
+  .details-grid { grid-template-columns: 1fr 1fr; }
+  .reg-options { grid-template-columns: 1fr 1fr; }
+  .reg-cta-wrap { flex-direction: row; }
+  .chalisa-grid { grid-template-columns: repeat(8, 1fr); }
+  .contact-card { flex-direction: row; }
+  .social-links { max-width: 500px; }
+
+  .desktop-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .desktop-section-wrap { max-width: 900px; margin: 0 auto; padding: 64px 40px; }
+  .desktop-section-wrap.alt-bg { background: var(--cream-dk); max-width: 100%; padding-left: 0; padding-right: 0; }
+  .desktop-section-wrap.alt-bg > .desktop-section-inner { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+}
 </style>
 </head>
 <body>
@@ -415,284 +585,414 @@ select.form-input { appearance: none; }
 <div id="splash">
   <div class="splash-om">🙏</div>
   <div class="splash-title">VĀYUPUTRA</div>
-  <div class="splash-sub">in Windy City · July 11, 2026</div>
+  <div class="splash-sub">in Windy City · Samashti Hanuman Chalisa Havan</div>
+  <div class="splash-dot-row">
+    <div class="splash-dot"></div>
+    <div class="splash-dot"></div>
+    <div class="splash-dot"></div>
+  </div>
 </div>
 
-<!-- APP -->
-<div id="app">
-
-  <!-- HEADER -->
-  <div class="app-header">
-    <div class="header-logos">
-      <img src="assets/CM 75 logo-color.jpg" alt="Chinmaya Mission 75" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(232,176,32,0.5);">
-    </div>
-    <div class="header-text">
-      <h1>VĀYUPUTRA IN WINDY CITY</h1>
-      <p>Chinmaya Mission Chicago · Badri · Yamunotri · Gangotri</p>
-    </div>
-    <img src="assets/CM 75 logo-color.jpg" alt="Chinmaya Amrit Mahotsav 75" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(232,176,32,0.5);">
+<!-- ══════════════════════════════
+     DESKTOP HEADER
+══════════════════════════════ -->
+<header class="site-header">
+  <div class="site-header-logo">
+    <img src="assets/logo.jpg" alt="Vayuputra" onerror="this.style.display='none'">
+    <span>VĀYUPUTRA IN WINDY CITY</span>
   </div>
+  <nav class="site-nav">
+    <a href="#about">About</a>
+    <a href="#details">Details</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#chalisa">Chalisā</a>
+    <a href="#seva">Seva</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="https://vayuputra.org/register-sponsors/" target="_blank" class="nav-cta">Register Free →</a>
+  </nav>
+</header>
 
-  <!-- SCREENS -->
-  <div class="screens">
+<!-- ══════════════════════════════
+     MOBILE HEADER
+══════════════════════════════ -->
+<div class="mobile-header">
+  <div class="mobile-header-logo">
+    <img src="assets/logo.jpg" alt="Vayuputra" onerror="this.style.display='none'">
+  </div>
+  <div class="mobile-header-text">
+    <h1>VĀYUPUTRA IN WINDY CITY</h1>
+    <p>Chinmaya Mission Chicago · Badri · Yamunotri · Gangotri</p>
+  </div>
+  <div class="mobile-header-badge">
+    <div class="badge-num">75</div>
+    <div class="badge-txt">AMRIT</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     HERO — FULL PAGE, HANUMAN JI BG
+══════════════════════════════ -->
+<div class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+
+    <!-- Logos -->
+    <div class="logos-row">
+      <img src="assets/logo.jpg" alt="Chinmaya Mission Chicago" onerror="this.style.display='none'">
+      <img src="assets/cm75.jpg" alt="Chinmaya Amrit Mahotsav 75" onerror="this.src='https://vayuputra.org/wp-content/uploads/2026/05/75-years.jpeg'">
+    </div>
+
+    <!-- Swami ji — PROMINENT -->
+    <div class="swamiji-block">
+      <div class="swamiji-label">In the divine blessings of</div>
+      <div class="swamiji-name" id="swamijiName">Pujya Swami Swaroopananda Ji</div>
+      <div class="swamiji-title">Global Head, Chinmaya Mission Worldwide</div>
+    </div>
+
+    <div class="om-divider">✦  ॐ  ✦</div>
+
+    <div class="hero-title">Vāyuputra<br>in Windy City</div>
+    <div class="hero-subtitle">Samashti Hanuman Chalisa Havan</div>
+
+    <!-- Info pills -->
+    <div class="hero-info-bar">
+      <div class="info-pill">📅 July 11, 2026</div>
+      <div class="info-pill">⏰ 8:00 AM onwards</div>
+      <div class="info-pill">📍 Wheaton, IL</div>
+      <div class="info-pill">🆓 Free & Open to All</div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-strip">
+      <div class="cd-unit"><span class="cd-num" id="cdDays">--</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cdHrs">--</span><span class="cd-lbl">Hours</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cdMin">--</span><span class="cd-lbl">Mins</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cdSec">--</span><span class="cd-lbl">Secs</span></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="hero-stats">
+      <div class="stat-pill"><div class="stat-num" id="statDays">42</div><div class="stat-lbl">Days Left</div></div>
+      <div class="stat-pill"><div class="stat-num">1,538+</div><div class="stat-lbl">Registered</div></div>
+      <div class="stat-pill"><div class="stat-num">1,008</div><div class="stat-lbl">Voices</div></div>
+      <div class="stat-pill"><div class="stat-num">500+</div><div class="stat-lbl">Sevaks</div></div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cta-group">
+      <a href="https://vayuputra.org/register-sponsors/" target="_blank" class="btn-primary">🙏 Register Free at vayuputra.org</a>
+      <div class="btn-row">
+        <a href="https://vayuputra.org/register-sponsors/#step2" target="_blank" class="btn-secondary">💛 Sponsor / Donate</a>
+        <a href="https://vayuputra.org/register-sponsors/" target="_blank" class="btn-secondary">🤝 Volunteer</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">↓ &nbsp; scroll to explore &nbsp; ↓</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     DESKTOP APP — FULL SECTIONS
+══════════════════════════════ -->
+<div id="desktop-app">
+
+  <!-- ABOUT -->
+  <section id="about" class="section section-alt">
+    <div class="section-header">
+      <div class="section-eyebrow">Why Participate</div>
+      <h2 class="section-title">A Momentous Festival<br>to Invoke His Grace</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="about-body">As part of the <strong>Chinmaya Amrit Mahotsav</strong> — marking <strong>75 glorious years of Chinmaya Mission</strong> — Chinmaya Mission Chicago invites all devotees to this Grand Hanumān Chalisā Yagna on <strong>July 11, 2026</strong> at the DuPage County Fairgrounds, Wheaton, IL. According to our ancient traditions, <em>samashti upāsanā</em> — collective prayer — multiplies in power manyfold. Join 1,008 voices in unified chant, creating an atmosphere of bhakti that blesses our entire community.</p>
+    <div class="why-chant-grid" id="desktop-why-grid"></div>
+  </section>
+
+  <!-- EVENT DETAILS -->
+  <section id="details" class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Event Details</div>
+      <h2 class="section-title">Everything You Need to Know</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="details-grid" id="desktop-details-grid"></div>
+    <div style="margin-top:24px">
+      <div class="section-eyebrow" style="text-align:left;margin-bottom:10px">What to Bring</div>
+      <div class="bring-list" id="desktop-bring-list"></div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule" class="section section-alt">
+    <div class="section-header">
+      <div class="section-eyebrow">Programme</div>
+      <h2 class="section-title">Schedule · July 11, 2026</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div id="desktop-schedule-list"></div>
+  </section>
+
+  <!-- REGISTRATION -->
+  <section id="registration" class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Join Us</div>
+      <h2 class="section-title">Register & Participate</h2>
+      <div class="section-rule"></div>
+      <p class="section-sub">Registration is completely free. Seva and sponsorship offerings support this historic Yagna.</p>
+    </div>
+    <div class="reg-options" id="desktop-reg-options"></div>
+    <div class="reg-cta-wrap" style="margin-top:24px">
+      <a href="https://vayuputra.org/register-sponsors/" target="_blank" class="btn-reg" style="flex:1">🙏 Register Free Now</a>
+      <a href="https://vayuputra.org/register-sponsors/" target="_blank" class="btn-volunteer" style="flex:1">🤝 Become a Vayu Sevak</a>
+    </div>
+  </section>
+
+  <!-- CHALISA -->
+  <section id="chalisa" class="section section-alt">
+    <div class="section-header">
+      <div class="section-eyebrow">Devotional Practice</div>
+      <h2 class="section-title">Hanumān Chalisā — 40 Chaupai Tracker</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="chalisa-intro">Each week a new Chaupai video is released before July 11. Tap a verse to watch it on YouTube and prepare to chant alongside 1,008 devotees at the grand Havan.</p>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="desktop-chalisa-bar" style="width:0%"></div></div>
+      <div class="progress-lbl" id="desktop-chalisa-lbl">Loading...</div>
+    </div>
+    <div class="chalisa-grid" id="desktop-chalisa-grid"></div>
+    <div class="chalisa-text-preview">
+      <div class="chalisa-verse-hindi">जय हनुमान ज्ञान गुन सागर।<br>जय कपीस तिहुँ लोक उजागर॥</div>
+      <div class="chalisa-verse-roman">Jai Hanuman Gyan Gun Sagar · Jai Kapis Tihun Lok Ujagar<br><em>Victory to Hanuman, the ocean of wisdom and virtue, who illumines all three worlds.</em></div>
+    </div>
+    <div style="margin-top:16px;text-align:center">
+      <a href="https://vayuputra.org/chicago-chants-chalisa/" target="_blank" class="btn-reg" style="display:inline-flex;gap:8px;padding:12px 28px">🎵 Learn Hanuman Chalisā — Chicago Chants</a>
+    </div>
+  </section>
+
+  <!-- SEVA & SPONSORS -->
+  <section id="seva" class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Seva & Sponsorship</div>
+      <h2 class="section-title">Devotional Offering Opportunities</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="desktop-two-col">
+      <div>
+        <div class="seva-group-title">🔥 Havan Seva — For Families</div>
+        <div class="seva-row"><div class="seva-info"><h5>Mukhya Yajaman</h5><p>2 seats at Anjaneya Seating — all 21 rounds</p></div><div class="seva-price">$5,001</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Yajaman — Bajrang</h5><p>2 seats at Bajrang Seating — all 21 rounds</p></div><div class="seva-price">$3,001</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Yajaman — Chiranjeevi</h5><p>2 seats at Chiranjeevi Seating</p></div><div class="seva-price">$2,501</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Yajaman — Dheera</h5><p>2 seats at Dheera Seating</p></div><div class="seva-price">$1,501</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Prasad Yajaman</h5><p>Sponsor prasadam for all devotees</p></div><div class="seva-price">$1,001</div></div>
+      </div>
+      <div>
+        <div class="seva-group-title">✨ Yagna Seva — Ahuti Offerings</div>
+        <div class="seva-row"><div class="seva-info"><h5>Mahatapasvi Seva</h5><p>Ahuti thali — 21 offerings</p></div><div class="seva-price">$751</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Shanta Seva</h5><p>Ahuti thali — 7 offerings</p></div><div class="seva-price">$251</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Lokpujya Seva</h5><p>Ahuti thali — 1 offering</p></div><div class="seva-price">$101</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Aarti Seva</h5><p>Sponsor the sacred Arati</p></div><div class="seva-price">$51</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Ramaduta Seva</h5><p>Collective Chalisa Chanting</p></div><div class="seva-price free">Free</div></div>
+        <div class="seva-group-title" style="margin-top:16px">🏪 Family Mela Booths</div>
+        <div class="seva-row"><div class="seva-info"><h5>Non-Profit / Community Orgs</h5><p>1 indoor table — high-traffic area</p></div><div class="seva-price">$251</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>For-Profit Orgs & Individuals</h5><p>1 indoor table — high-traffic area</p></div><div class="seva-price">$501</div></div>
+      </div>
+    </div>
+    <div class="seva-group-title" style="margin-top:24px">🤝 Samashti Sahayog — For Organizations</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+      <div class="org-seva-card"><h4>Sankalpa Sahayog</h4><p>Register members as a group. Logo on website & flyers. 2 reps offer Ahuti.</p><span class="org-badge">Free</span></div>
+      <div class="org-seva-card"><h4>Bhakti Sahayog</h4><p>Group chanting or cultural performance (audition required). Logo recognition.</p><span class="org-badge">Free</span></div>
+      <div class="org-seva-card"><h4>Seva Sahayog</h4><p>Min 15 volunteers for 2+ hours. Logo recognition. Volunteer hours provided.</p><span class="org-badge">Free</span></div>
+    </div>
+    <div style="margin-top:20px;text-align:center">
+      <a href="https://vayuputra.org/register-sponsors/" target="_blank" class="btn-reg" style="display:inline-flex;gap:8px;padding:12px 32px">Sponsor at vayuputra.org →</a>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section id="gallery" class="section section-alt">
+    <div class="section-header">
+      <div class="section-eyebrow">Media & Inspiration</div>
+      <h2 class="section-title">Videos & Gallery</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="video-filter-row" id="desktop-vfilter"></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px" id="desktop-videos-grid"></div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Common Questions</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="faq-list" id="desktop-faq-list"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section section-alt">
+    <div class="section-header">
+      <div class="section-eyebrow">Reach Out</div>
+      <h2 class="section-title">Contact Us</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div id="desktop-contacts"></div>
+    <div class="social-links" style="margin-top:16px">
+      <a href="https://www.facebook.com/events/1421250602777124" target="_blank" class="social-link">📘 Facebook</a>
+      <a href="https://www.instagram.com/chinmayamission_yamunotri/" target="_blank" class="social-link">📷 Instagram</a>
+      <a href="https://www.youtube.com/watch?v=YITROLpq8sU" target="_blank" class="social-link">▶️ YouTube</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🕉️ VĀYUPUTRA IN WINDY CITY</div>
+    <div class="footer-sub">Samashti Hanuman Chalisa Havan · July 11, 2026</div>
+    <div class="footer-links">
+      <a href="https://vayuputra.org" target="_blank">vayuputra.org</a>
+      <a href="https://vayuputra.org/schedule/" target="_blank">Schedule</a>
+      <a href="https://vayuputra.org/register-sponsors/" target="_blank">Register</a>
+      <a href="https://vayuputra.org/faq/" target="_blank">FAQ</a>
+      <a href="mailto:vayuputra@mychinmaya.org">vayuputra@mychinmaya.org</a>
+    </div>
+    <div class="copyright">© 2026 Chinmaya Mission Chicago · Badri · Yamunotri · Gangotri · Jai Hanumān! 🙏</div>
+  </footer>
+
+</div><!-- /desktop-app -->
+
+
+<!-- ══════════════════════════════
+     MOBILE APP
+══════════════════════════════ -->
+<div id="mobile-app">
+
+  <div class="screens-wrap">
 
     <!-- HOME SCREEN -->
-    <div class="screen active screen-pad" id="screen-home">
-      <div class="hero">
-        <img src="assets/flyer.png" alt="Vāyuputra in Windy City" class="hero-flyer" id="heroFlyer" onerror="this.style.display='none'">
-        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px;">
-          <img src="assets/CM 75 logo-color.jpg" alt="Chinmaya Mission 75" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid rgba(232,176,32,0.6);">
+    <div class="screen active" id="m-home">
+      <!-- Hero is always visible above — just add activity cards -->
+      <div class="section" style="padding-top:24px">
+        <div class="section-header">
+          <div class="section-eyebrow">July 11, 2026</div>
+          <div class="section-title" style="font-size:18px">A Day Full of Divine Experience</div>
+          <div class="section-rule"></div>
         </div>
-        <div class="hero-title">Vāyuputra in Windy City</div>
-        <div class="hero-subtitle">A Momentous Festival to Invoke His Grace</div>
-        <div class="hero-info-bar">
-          <span>📅 July 11, 2026</span>
-          <span class="dot">·</span>
-          <span>📍 DuPage County Fairgrounds</span>
-          <span class="dot">·</span>
-          <span>⏰ 8 AM onwards</span>
-        </div>
-        <div class="presider-line">
-          <p style="margin-bottom:1px;">Presided by</p>
-          <strong>Pujya Swami Swaroopananda</strong>
-          <p class="subtitle" style="margin-top:2px;">Global Head, Chinmaya Mission</p>
-        </div>
-        <div class="counters">
-          <div class="counter-box">
-            <span class="counter-num" id="daysLeft">--</span>
-            <div class="counter-label">Days Left</div>
-          </div>
-          <div class="counter-box">
-            <span class="counter-num" id="orgCount">--</span>
-            <div class="counter-label">Partner Orgs</div>
-          </div>
-          <div class="counter-box">
-            <span class="counter-num" id="regCount">--</span>
-            <div class="counter-label">Registered</div>
-          </div>
-        </div>
-        <a href="https://vayuputra.org" target="_blank" class="register-btn">🙏 Register Free at vayuputra.org</a>
-      </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="m-activity-grid"></div>
 
-      <div class="section-title">Activities at the Event</div>
-      <div class="activities-grid" id="activitiesGrid"></div>
+        <div style="margin-top:20px">
+          <p class="about-body" style="font-size:14px">As part of the <strong>Chinmaya Amrit Mahotsav</strong> — marking 75 years of Chinmaya Mission — Chinmaya Mission Chicago invites all devotees to this Grand Hanumān Chalisā Yagna. Join 1,008 voices in unified chant, creating an atmosphere of bhakti that blesses our entire community.</p>
+        </div>
 
-      <div class="section-title">About this Yagna</div>
-      <div style="padding:12px 16px 4px;">
-        <p style="font-family:'Crimson Pro',serif;font-size:15px;color:var(--text-mid);line-height:1.7;">
-          As part of the <strong>Chinmaya Amrit Mahotsav</strong> — marking 75 years of Chinmaya Mission — we invite all Chicagoland devotees to this Grand Hanumān Chalisā Yagna. According to our ancient traditions, <em>samashti upāsanā</em> — collective prayer — multiplies in power. Join thousands of voices in a unified chant, creating an atmosphere of bhakti that blesses our entire community.
-        </p>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
+          <a href="https://vayuputra.org/register-sponsors/" target="_blank" class="btn-reg">🙏 Register Free at vayuputra.org</a>
+          <a href="https://vayuputra.org/register-sponsors/#step2" target="_blank" class="btn-volunteer">💛 Sponsor / Donate</a>
+        </div>
+
+        <!-- Partner orgs -->
+        <div style="margin-top:20px">
+          <div class="section-eyebrow" style="text-align:left;margin-bottom:8px">Community Partners</div>
+          <div id="m-partners-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
+        </div>
       </div>
     </div>
 
     <!-- SCHEDULE SCREEN -->
-    <div class="screen screen-pad" id="screen-schedule">
-      <div class="section-title">Event Schedule · July 11, 2026</div>
-      <div class="schedule-list" id="scheduleList"></div>
+    <div class="screen" id="m-schedule">
+      <div class="pad">
+        <div class="section-header" style="text-align:left;margin-bottom:16px">
+          <div class="section-eyebrow">Programme</div>
+          <div class="section-title" style="font-size:18px">Schedule · July 11, 2026</div>
+        </div>
+        <div id="m-schedule-list"></div>
+        <div style="margin-top:16px" class="bring-list" id="m-bring-list-sched"></div>
+      </div>
+    </div>
+
+    <!-- CHALISA SCREEN -->
+    <div class="screen" id="m-chalisa">
+      <div class="pad">
+        <p class="chalisa-intro">Tap a green tile to watch that Chaupai on YouTube. New verses released each week before July 11.</p>
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="m-chalisa-bar" style="width:0%"></div></div>
+          <div class="progress-lbl" id="m-chalisa-lbl">Loading...</div>
+        </div>
+        <div class="chalisa-grid" id="m-chalisa-grid"></div>
+        <div class="chalisa-text-preview">
+          <div class="chalisa-verse-hindi">जय हनुमान ज्ञान गुन सागर।<br>जय कपीस तिहुँ लोक उजागर॥</div>
+          <div class="chalisa-verse-roman">Jai Hanuman Gyan Gun Sagar<br><em>Victory to Hanuman, ocean of wisdom and virtue.</em></div>
+        </div>
+        <a href="https://vayuputra.org/chicago-chants-chalisa/" target="_blank" class="btn-reg" style="margin-top:14px;display:flex;gap:6px;justify-content:center">🎵 Learn Chalisa — Chicago Chants Program</a>
+      </div>
     </div>
 
     <!-- VIDEOS SCREEN -->
-    <div class="screen screen-pad" id="screen-videos">
-      <div class="section-title">Videos & Spiritual Content</div>
-      <div class="video-filters" id="videoFilters">
-        <div class="filter-pill active" onclick="filterVideos('All',this)">All</div>
-        <div class="filter-pill" onclick="filterVideos('Badri',this)">Badri</div>
-        <div class="filter-pill" onclick="filterVideos('Yamunotri',this)">Yamunotri</div>
-        <div class="filter-pill" onclick="filterVideos('Gangotri',this)">Gangotri</div>
-        <div class="filter-pill" onclick="filterVideos('Chaupai',this)">Chaupai</div>
-        <div class="filter-pill" onclick="filterVideos('Promo',this)">Promos</div>
+    <div class="screen" id="m-videos">
+      <div class="pad">
+        <div class="video-filter-row" id="m-vfilter"></div>
+        <div class="videos-grid" id="m-videos-list"></div>
       </div>
-      <div class="videos-list" id="videosList"></div>
     </div>
 
-    <!-- SEVA & SPONSOR SCREEN -->
-    <div class="screen screen-pad" id="screen-seva">
-      <div class="section-title">Devotional Offering Opportunities</div>
-      <div class="seva-section">
-        <div class="seva-group">
-          <div class="seva-group-title">🔥 Havan Seva — For Families & Individuals</div>
-          <div class="seva-row"><div class="seva-info"><h5>Mukhya Yajaman</h5><p>2 seats at Anjaneya Seating — all 21 rounds</p></div><div class="seva-amount">$5,001</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>Yajaman</h5><p>2 seats at Bajrang Seating — all 21 rounds</p></div><div class="seva-amount">$3,001</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>Yajaman</h5><p>2 seats at Chiranjeevi Seating — all 21 rounds</p></div><div class="seva-amount">$2,501</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>Yajaman</h5><p>2 seats at Dheera Seating — all 21 rounds</p></div><div class="seva-amount">$1,501</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>Prasad Yajaman</h5><p>Sponsor prasadam for all devotees</p></div><div class="seva-amount">$1,001</div></div>
-        </div>
-        <div class="seva-group">
-          <div class="seva-group-title">✨ Yagna Seva — Ahuti Offerings</div>
-          <div class="seva-row"><div class="seva-info"><h5>Mahatapasvi Seva</h5><p>Ahuti thali at Havan kund — 21 offerings</p></div><div class="seva-amount">$751</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>Shanta Seva</h5><p>Ahuti thali at Havan kund — 7 offerings</p></div><div class="seva-amount">$251</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>Lokpujya Seva</h5><p>Ahuti thali at Havan kund — 1 offering</p></div><div class="seva-amount">$101</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>Aarti Seva</h5><p>Sponsor the sacred Arati</p></div><div class="seva-amount">$51</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>Ramaduta Seva</h5><p>Collective Chalisa Chanting — all welcome</p></div><div class="seva-amount free">Free</div></div>
-        </div>
-        <div class="seva-group">
-          <div class="seva-group-title">🤝 Samashti Sahayog — For Organizations</div>
-          <div class="org-card"><h4>Sankalpa Sahayog</h4><p>Register members as a group. Logo on website & flyers. 2 reps offer Ahuti.</p><span class="org-badge">Free</span></div>
-          <div class="org-card"><h4>Bhakti Sahayog</h4><p>Group chanting or cultural performance (audition required). Logo recognition.</p><span class="org-badge">Free</span></div>
-          <div class="org-card"><h4>Seva Sahayog</h4><p>Min 15 volunteers for 2+ hours. Logo recognition. Volunteer hours provided.</p><span class="org-badge">Free</span></div>
-        </div>
-        <div class="seva-group">
-          <div class="seva-group-title">🏪 Family Mela Booths</div>
-          <div class="seva-row"><div class="seva-info"><h5>Non-Profit / Community Orgs</h5><p>1 indoor table in high-traffic area</p></div><div class="seva-amount">$251</div></div>
-          <div class="seva-row"><div class="seva-info"><h5>For-Profit Orgs & Individuals</h5><p>1 indoor table in high-traffic area</p></div><div class="seva-amount">$501</div></div>
-        </div>
-      </div>
-      <div style="padding:0 16px 16px;">
-        <a href="https://vayuputra.org" target="_blank" class="register-btn">Sponsor at vayuputra.org</a>
+    <!-- SEVA SCREEN -->
+    <div class="screen" id="m-seva">
+      <div class="pad">
+        <div class="seva-group-title">🔥 Havan Seva — For Families & Individuals</div>
+        <div class="seva-row"><div class="seva-info"><h5>Mukhya Yajaman</h5><p>2 seats at Anjaneya Seating — all 21 rounds</p></div><div class="seva-price">$5,001</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Yajaman — Bajrang</h5><p>2 seats at Bajrang Seating — all 21 rounds</p></div><div class="seva-price">$3,001</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Yajaman — Chiranjeevi</h5><p>2 seats, all 21 rounds</p></div><div class="seva-price">$2,501</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Yajaman — Dheera</h5><p>2 seats, all 21 rounds</p></div><div class="seva-price">$1,501</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Prasad Yajaman</h5><p>Sponsor prasadam for all</p></div><div class="seva-price">$1,001</div></div>
+        <div class="seva-group-title" style="margin-top:12px">✨ Yagna Ahuti Seva</div>
+        <div class="seva-row"><div class="seva-info"><h5>Mahatapasvi Seva</h5><p>21 Ahuti offerings</p></div><div class="seva-price">$751</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Shanta Seva</h5><p>7 Ahuti offerings</p></div><div class="seva-price">$251</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Lokpujya Seva</h5><p>1 Ahuti offering</p></div><div class="seva-price">$101</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Aarti Seva</h5><p>Sponsor the sacred Arati</p></div><div class="seva-price">$51</div></div>
+        <div class="seva-row"><div class="seva-info"><h5>Ramaduta Seva</h5><p>Collective Chalisa chanting</p></div><div class="seva-price free">Free</div></div>
+        <div class="seva-group-title" style="margin-top:12px">🤝 Samashti Sahayog — Organizations</div>
+        <div class="org-seva-card"><h4>Sankalpa Sahayog</h4><p>Register as group. Logo recognition. 2 reps offer Ahuti.</p><span class="org-badge">Free</span></div>
+        <div class="org-seva-card"><h4>Bhakti Sahayog</h4><p>Group chanting / cultural performance.</p><span class="org-badge">Free</span></div>
+        <div class="org-seva-card"><h4>Seva Sahayog</h4><p>Min 15 volunteers for 2+ hours.</p><span class="org-badge">Free</span></div>
+        <a href="https://vayuputra.org/register-sponsors/" target="_blank" class="btn-reg" style="margin-top:16px;display:flex;gap:8px;justify-content:center">Sponsor at vayuputra.org →</a>
       </div>
     </div>
 
     <!-- MORE SCREEN -->
-    <div class="screen screen-pad" id="screen-more">
-      <div class="section-title">More</div>
+    <div class="screen" id="m-more">
       <div class="more-list">
-        <div class="more-item" onclick="showSubScreen('orgs')">
-          <div class="more-icon" style="background:#FAE8E0;">🏢</div>
-          <div class="more-text"><h4>Partner Organizations</h4><p>Community orgs joining the Yagna</p></div>
-          <div class="more-arrow">›</div>
-        </div>
-        <div class="more-item" onclick="showSubScreen('chalisa')">
-          <div class="more-icon" style="background:#E8F0E8;">📿</div>
-          <div class="more-text"><h4>Chalisā Tracker</h4><p>40 Chaupai videos — watch each verse</p></div>
-          <div class="more-arrow">›</div>
-        </div>
-        <div class="more-item" onclick="showSubScreen('venue')">
-          <div class="more-icon" style="background:#E8EAF8;">📍</div>
-          <div class="more-text"><h4>Venue & Directions</h4><p>DuPage County Fairgrounds, Wheaton IL</p></div>
-          <div class="more-arrow">›</div>
-        </div>
-        <div class="more-item" onclick="showSubScreen('resources')">
-          <div class="more-icon" style="background:#F8F0E0;">📄</div>
-          <div class="more-text"><h4>Resources & Downloads</h4><p>Flyers, invitation packet, vendor info</p></div>
-          <div class="more-arrow">›</div>
-        </div>
-        <div class="more-item" onclick="showSubScreen('register')">
-          <div class="more-icon" style="background:#F0E8F8;">📝</div>
-          <div class="more-text"><h4>Register</h4><p>Free registration for all devotees</p></div>
-          <div class="more-arrow">›</div>
-        </div>
-        <div class="more-item" onclick="showSubScreen('contacts')">
-          <div class="more-icon" style="background:#E8F8F0;">📞</div>
-          <div class="more-text"><h4>Contact Us</h4><p>Event coordinators — tap to call</p></div>
-          <div class="more-arrow">›</div>
-        </div>
-        <div class="more-item" onclick="window.open('https://vayuputra.org','_blank')">
-          <div class="more-icon" style="background:#F8E8E8;">🌐</div>
-          <div class="more-text"><h4>vayuputra.org</h4><p>Official event website</p></div>
-          <div class="more-arrow">›</div>
-        </div>
+        <div class="more-row" onclick="openSub('m-sub-venue')"><div class="more-icon" style="background:#E8EAF8">📍</div><div class="more-text"><h4>Venue & Directions</h4><p>DuPage County Fairgrounds, Wheaton IL</p></div><div class="more-arrow">›</div></div>
+        <div class="more-row" onclick="openSub('m-sub-register')"><div class="more-icon" style="background:#F0E8F8">📝</div><div class="more-text"><h4>Register</h4><p>Free registration for all devotees</p></div><div class="more-arrow">›</div></div>
+        <div class="more-row" onclick="openSub('m-sub-faq')"><div class="more-icon" style="background:#E8F8F0">❓</div><div class="more-text"><h4>FAQ</h4><p>Common questions answered</p></div><div class="more-arrow">›</div></div>
+        <div class="more-row" onclick="openSub('m-sub-orgs')"><div class="more-icon" style="background:#FAE8E0">🏢</div><div class="more-text"><h4>Partner Organizations</h4><p>Community orgs joining the Yagna</p></div><div class="more-arrow">›</div></div>
+        <div class="more-row" onclick="openSub('m-sub-contacts')"><div class="more-icon" style="background:#E8F0E8">📞</div><div class="more-text"><h4>Contact Us</h4><p>Event coordinators</p></div><div class="more-arrow">›</div></div>
+        <div class="more-row" onclick="window.open('https://vayuputra.org/gallery/','_blank')"><div class="more-icon" style="background:#F8F0E0">📸</div><div class="more-text"><h4>Gallery</h4><p>Photos from vayuputra.org</p></div><div class="more-arrow">↗</div></div>
+        <div class="more-row" onclick="window.open('https://vayuputra.org','_blank')"><div class="more-icon" style="background:#F8E8E8">🌐</div><div class="more-text"><h4>vayuputra.org</h4><p>Official event website</p></div><div class="more-arrow">↗</div></div>
       </div>
-    </div>
-
-    <!-- SUB: ORGS -->
-    <div class="screen screen-pad" id="screen-orgs">
-      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);">
-        <button onclick="showScreen('more')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--crimson);">‹</button>
-        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--crimson);">Partner Organizations</span>
-      </div>
-      <div class="org-stats">
-        <div class="org-stat-box"><div class="org-stat-num" id="orgStatCount">--</div><div class="org-stat-label">Organizations</div></div>
-        <div class="org-stat-box"><div class="org-stat-num">3</div><div class="org-stat-label">Participation Types</div></div>
-      </div>
-      <div class="org-list" id="orgList"></div>
-    </div>
-
-    <!-- SUB: CHALISA -->
-    <div class="screen screen-pad" id="screen-chalisa">
-      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);">
-        <button onclick="showScreen('more')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--crimson);">‹</button>
-        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--crimson);">Hanumān Chalisā — 40 Chaupais</span>
-      </div>
-      <div class="chalisa-intro">
-        <p>Each week a new Chaupai video is released. Tap a green tile to watch. All 40 verses will be released before July 11.</p>
-        <div class="chalisa-progress">
-          <div class="progress-bar"><div class="progress-fill" id="chalisaProgress" style="width:0%"></div></div>
-          <div class="progress-text" id="chalisaText">Loading...</div>
-        </div>
-      </div>
-      <div class="chalisa-grid" id="chalisaGrid"></div>
     </div>
 
     <!-- SUB: VENUE -->
-    <div class="screen screen-pad" id="screen-venue">
-      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);">
-        <button onclick="showScreen('more')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--crimson);">‹</button>
-        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--crimson);">Venue & Directions</span>
+    <div class="screen" id="m-sub-venue">
+      <div class="subscreen-header"><button class="back-btn" onclick="closeSub()">‹</button><span class="subscreen-title">Venue & Directions</span></div>
+      <div class="map-placeholder"><span>🗺️</span><p>DuPage County Fairgrounds</p></div>
+      <div class="venue-details">
+        <h3>DuPage County Fairgrounds</h3>
+        <p>2015 Manchester Rd, Wheaton, IL 60187<br>Saturday, July 11, 2026 · Gates open 7:30 AM</p>
       </div>
-      <div class="venue-card">
-        <div class="venue-map-placeholder">
-          <span>🗺️</span>
-          <p>DuPage County Fairgrounds</p>
-        </div>
-        <div class="venue-details">
-          <h3>DuPage County Fairgrounds</h3>
-          <p>2015 Manchester Rd, Wheaton, IL 60187<br>Saturday, July 11, 2026 · Gates open 8:00 AM</p>
-        </div>
+      <div class="pad" style="padding-top:0;display:flex;flex-direction:column;gap:8px">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=DuPage+County+Fairgrounds+Wheaton+IL" target="_blank" class="link-block" style="background:var(--saffron);color:#fff">🗺️ Get Directions — Google Maps</a>
+        <a href="https://www.dupagecountyfair.org" target="_blank" class="link-block" style="background:var(--cream);color:var(--crimson);border:1px solid var(--border)">🌐 DuPage County Fairgrounds Website</a>
       </div>
-      <div class="venue-actions">
-        <a href="https://maps.google.com/?q=DuPage+County+Fairgrounds,Wheaton,IL" target="_blank" class="venue-btn btn-primary">🗺️ Get Directions in Google Maps</a>
-        <a href="https://www.dupagecountyfair.org" target="_blank" class="venue-btn btn-secondary">🌐 DuPage County Fairgrounds Website</a>
-      </div>
-      <div class="parking-note">
+      <div class="parking-card">
         <h4>🚗 Getting There</h4>
-        <p>
-          <strong>Parking:</strong> Free on-site parking available.<br><br>
-          <strong>By Car:</strong> Take I-290 W to I-88 W, exit Naperville Rd, head north to Manchester Rd.<br><br>
-          <strong>By Metra:</strong> Union Pacific West Line — Wheaton Station, then short drive/rideshare.<br><br>
-          <strong>From Chicago:</strong> Approximately 35–45 minutes by car.
-        </p>
+        <p><strong>Parking:</strong> Free on-site parking available. Arrive early.<br><br><strong>By Car:</strong> Take I-290 W to I-88 W, exit Naperville Rd, head north to Manchester Rd.<br><br><strong>By Metra:</strong> Union Pacific West Line — Wheaton Station, then rideshare.<br><br><strong>From Chicago:</strong> Approximately 35–45 minutes by car.</p>
       </div>
-    </div>
-
-    <!-- SUB: RESOURCES -->
-    <div class="screen screen-pad" id="screen-resources">
-      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);">
-        <button onclick="showScreen('more')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--crimson);">‹</button>
-        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--crimson);">Resources & Downloads</span>
-      </div>
-      <a class="resource-item" href="https://vayuputra.org" target="_blank">
-        <div class="resource-icon" style="background:#FAE8E0;">🎨</div>
-        <div class="resource-text"><h4>Event Flyer</h4><p>Download & share with your community</p></div>
-        <div class="resource-arrow">↗</div>
-      </a>
-      <a class="resource-item" href="https://vayuputra.org" target="_blank">
-        <div class="resource-icon" style="background:#E8EAF8;">📋</div>
-        <div class="resource-text"><h4>Invitation Packet for Organizations</h4><p>Full details on how your org can participate</p></div>
-        <div class="resource-arrow">↗</div>
-      </a>
-      <a class="resource-item" href="https://vayuputra.org" target="_blank">
-        <div class="resource-icon" style="background:#E8F0E8;">🍽️</div>
-        <div class="resource-text"><h4>Food Vendor Application</h4><p>Apply to host a food stall at the Family Mela</p></div>
-        <div class="resource-arrow">↗</div>
-      </a>
-      <a class="resource-item" href="https://vayuputra.org" target="_blank">
-        <div class="resource-icon" style="background:#F8F0E0;">🏪</div>
-        <div class="resource-text"><h4>Vendor Booth Information</h4><p>For-profit & non-profit booth details</p></div>
-        <div class="resource-arrow">↗</div>
-      </a>
-      <a class="resource-item" href="https://vayuputra.org" target="_blank">
-        <div class="resource-icon" style="background:#F0E8F8;">🙌</div>
-        <div class="resource-text"><h4>Volunteer Sign-Up</h4><p>Join the Seva Sahayog team</p></div>
-        <div class="resource-arrow">↗</div>
-      </a>
-      <a class="resource-item" href="https://vayuputra.org" target="_blank">
-        <div class="resource-icon" style="background:#F8E8E8;">📿</div>
-        <div class="resource-text"><h4>Sponsorship Packet</h4><p>Full seva and sponsorship tiers PDF</p></div>
-        <div class="resource-arrow">↗</div>
-      </a>
     </div>
 
     <!-- SUB: REGISTER -->
-    <div class="screen screen-pad" id="screen-register">
-      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);">
-        <button onclick="showScreen('more')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--crimson);">‹</button>
-        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--crimson);">Register</span>
-      </div>
-      <div class="register-hero">
-        <h2>Join the Yagna</h2>
-        <p>Registration is free for all devotees</p>
-      </div>
-      <div class="register-form-wrap">
+    <div class="screen" id="m-sub-register">
+      <div class="subscreen-header"><button class="back-btn" onclick="closeSub()">‹</button><span class="subscreen-title">Register</span></div>
+      <div class="reg-hero-bar"><h2>Join the Yagna</h2><p>Registration is completely free for all devotees</p></div>
+      <div class="form-wrap">
         <div class="form-group"><label class="form-label">First Name *</label><input type="text" class="form-input" id="fName" placeholder="Your first name"></div>
         <div class="form-group"><label class="form-label">Last Name *</label><input type="text" class="form-input" id="lName" placeholder="Your last name"></div>
         <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="fEmail" placeholder="your@email.com"></div>
@@ -713,248 +1013,353 @@ select.form-input { appearance: none; }
             <option>Food Vendor / Booth</option>
           </select>
         </div>
-        <div class="form-group"><label class="form-label">Organization Name (optional)</label><input type="text" class="form-input" id="fOrg" placeholder="Your organization"></div>
-        <button class="form-submit" onclick="submitRegistration()">🙏 Submit Registration</button>
-        <div class="form-note">Registration is completely free. For paid seva, our team will contact you with payment details at vayuputra@mychinmaya.org</div>
+        <div class="form-group"><label class="form-label">Organization (optional)</label><input type="text" class="form-input" id="fOrg" placeholder="Your organization name"></div>
+        <button class="form-submit" onclick="submitReg()">🙏 Submit Registration</button>
+        <div class="form-note">For paid seva, our team will contact you with payment details.<br>Email: <a href="mailto:vayuputra@mychinmaya.org" style="color:var(--saffron)">vayuputra@mychinmaya.org</a></div>
         <div class="success-msg" id="successMsg">
           <h4>🙏 Jai Hanumān!</h4>
-          <p>Your registration has been received. We will be in touch at vayuputra@mychinmaya.org. Thank you for joining this historic Yagna!</p>
+          <p>Your registration has been received! We will be in touch soon. Thank you for joining this historic Yagna.</p>
         </div>
       </div>
     </div>
 
+    <!-- SUB: FAQ -->
+    <div class="screen" id="m-sub-faq">
+      <div class="subscreen-header"><button class="back-btn" onclick="closeSub()">‹</button><span class="subscreen-title">FAQ</span></div>
+      <div class="pad"><div class="faq-list" id="m-faq-list"></div></div>
+    </div>
+
+    <!-- SUB: ORGS -->
+    <div class="screen" id="m-sub-orgs">
+      <div class="subscreen-header"><button class="back-btn" onclick="closeSub()">‹</button><span class="subscreen-title">Partner Organizations</span></div>
+      <div class="pad"><div id="m-org-list"></div></div>
+    </div>
+
     <!-- SUB: CONTACTS -->
-    <div class="screen screen-pad" id="screen-contacts">
-      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);">
-        <button onclick="showScreen('more')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--crimson);">‹</button>
-        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--crimson);">Contact Us</span>
-      </div>
-      <div style="padding:8px 0;" id="contactsList"></div>
-      <div style="padding:12px 16px;">
-        <a href="mailto:vayuputra@mychinmaya.org" class="venue-btn btn-primary" style="margin-bottom:8px;text-decoration:none;">✉️ vayuputra@mychinmaya.org</a>
-        <a href="https://vayuputra.org" target="_blank" class="venue-btn btn-secondary" style="text-decoration:none;">🌐 vayuputra.org</a>
+    <div class="screen" id="m-sub-contacts">
+      <div class="subscreen-header"><button class="back-btn" onclick="closeSub()">‹</button><span class="subscreen-title">Contact Us</span></div>
+      <div class="pad">
+        <div id="m-contacts-list"></div>
+        <a href="mailto:vayuputra@mychinmaya.org" class="link-block mt-4" style="background:var(--saffron);color:#fff">✉️ vayuputra@mychinmaya.org</a>
+        <a href="https://vayuputra.org" target="_blank" class="link-block" style="background:var(--cream);color:var(--crimson);border:1px solid var(--border)">🌐 vayuputra.org</a>
+        <div class="social-links">
+          <a href="https://www.facebook.com/events/1421250602777124" target="_blank" class="social-link">📘 Facebook</a>
+          <a href="https://www.instagram.com/chinmayamission_yamunotri/" target="_blank" class="social-link">📷 Instagram</a>
+          <a href="https://www.youtube.com/watch?v=YITROLpq8sU" target="_blank" class="social-link">▶️ YouTube</a>
+        </div>
       </div>
     </div>
 
-  </div><!-- /screens -->
+  </div><!-- /screens-wrap -->
 
   <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
-    <button class="nav-item active" onclick="showScreen('home')" id="nav-home">
-      <span class="nav-icon">🏠</span><span class="nav-label">Home</span>
-    </button>
-    <button class="nav-item" onclick="showScreen('schedule')" id="nav-schedule">
-      <span class="nav-icon">📅</span><span class="nav-label">Schedule</span>
-    </button>
-    <button class="nav-item" onclick="showScreen('videos')" id="nav-videos">
-      <span class="nav-icon">▶️</span><span class="nav-label">Videos</span>
-    </button>
-    <button class="nav-item" onclick="showScreen('seva')" id="nav-seva">
-      <span class="nav-icon">🙏</span><span class="nav-label">Seva</span>
-    </button>
-    <button class="nav-item" onclick="showScreen('more')" id="nav-more">
-      <span class="nav-icon">☰</span><span class="nav-label">More</span>
-    </button>
-  </div>
+  <nav class="bottom-nav">
+    <button class="nav-btn on" id="nav-home" onclick="showMobile('home')"><span class="nav-icon">🏠</span><span class="nav-lbl">Home</span></button>
+    <button class="nav-btn" id="nav-schedule" onclick="showMobile('schedule')"><span class="nav-icon">📅</span><span class="nav-lbl">Schedule</span></button>
+    <button class="nav-btn" id="nav-chalisa" onclick="showMobile('chalisa')"><span class="nav-icon">📿</span><span class="nav-lbl">Chalisā</span></button>
+    <button class="nav-btn" id="nav-videos" onclick="showMobile('videos')"><span class="nav-icon">▶️</span><span class="nav-lbl">Videos</span></button>
+    <button class="nav-btn" id="nav-seva" onclick="showMobile('seva')"><span class="nav-icon">🙏</span><span class="nav-lbl">Seva</span></button>
+    <button class="nav-btn" id="nav-more" onclick="showMobile('more')"><span class="nav-icon">☰</span><span class="nav-lbl">More</span></button>
+  </nav>
+</div><!-- /mobile-app -->
 
-</div><!-- /app -->
 
 <script>
-const DATA_BASE = './data/';
+/* ══════════════════════════════
+   DATA LOADING
+══════════════════════════════ */
+const D = './data/';
 let allVideos = [];
-let config = {};
+let currentMobileScreen = 'home';
 
-async function loadJSON(file) {
-  try {
-    const r = await fetch(DATA_BASE + file);
-    return await r.json();
-  } catch(e) {
-    console.warn('Could not load', file, e);
-    return null;
-  }
+async function loadJSON(f) {
+  try { const r = await fetch(D+f); return await r.json(); } catch(e) { console.warn('load',f,e); return null; }
 }
 
 async function init() {
   setTimeout(() => document.getElementById('splash').classList.add('fade'), 1800);
-  config = await loadJSON('config.json') || {};
-  updateCountdown();
-  setInterval(updateCountdown, 60000);
-  await loadSchedule();
-  await loadVideos();
-  await loadChalisa();
-  await loadOrgs();
-  loadContacts();
+  startCountdown();
+
+  const [cfg, sched, vids, chalisa, orgs, faqs] = await Promise.all([
+    loadJSON('config.json'),
+    loadJSON('schedule.json'),
+    loadJSON('videos.json'),
+    loadJSON('chalisa.json'),
+    loadJSON('organizations.json'),
+    loadJSON('faq.json'),
+  ]);
+
+  if (sched)    { buildSchedule(sched); buildActivities(sched); buildBringList(); }
+  if (vids)     { allVideos = vids; buildVideos(vids, 'All'); }
+  if (chalisa)  { buildChalisa(chalisa); }
+  if (orgs)     { buildOrgs(orgs); }
+  if (faqs)     { buildFAQ(faqs); }
+  if (cfg)      { buildContacts(cfg.contacts || []); buildDetails(cfg.event || {}); }
+  buildWhyChant();
+  buildRegOptions();
+  buildPartners(orgs || []);
 }
 
-function updateCountdown() {
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const target = new Date(2026, 6, 11);
-  const diff = target - today;
-  const days = Math.ceil(diff / 86400000);
-  document.getElementById('daysLeft').textContent = days > 0 ? days : '0';
-}
-
-async function loadSchedule() {
-  const data = await loadJSON('schedule.json');
-  if (!data) return;
-  const grid = document.getElementById('activitiesGrid');
-  const list = document.getElementById('scheduleList');
-  data.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'activity-card';
-    card.innerHTML = `<div class="activity-icon">${item.icon}</div><div class="activity-name">${item.activity}</div><div class="activity-desc">${item.description.substring(0,60)}...</div>`;
-    grid.appendChild(card);
-    const row = document.createElement('div');
-    row.className = 'sched-item';
-    row.innerHTML = `<div class="sched-time">${item.time}</div><div class="sched-icon">${item.icon}</div><div class="sched-body"><h4>${item.activity}</h4><p>${item.description}</p><span class="sched-cat cat-${item.category.toLowerCase()}">${item.category}</span></div>`;
-    list.appendChild(row);
-  });
-}
-
-async function loadVideos() {
-  const data = await loadJSON('videos.json');
-  if (!data) return;
-  allVideos = data;
-  renderVideos(data);
-}
-
-function renderVideos(videos) {
-  const list = document.getElementById('videosList');
-  list.innerHTML = '';
-  if (!videos.length) {
-    list.innerHTML = '<p style="padding:20px;text-align:center;color:var(--text-light);font-size:13px;">No videos found. Add YouTube IDs to data/videos.json</p>';
-    return;
+/* ══════════════════════════════
+   COUNTDOWN
+══════════════════════════════ */
+function startCountdown() {
+  function tick() {
+    const now = Date.now();
+    const target = new Date('2026-07-11T07:30:00').getTime();
+    const diff = Math.max(0, target - now);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const p = n => String(n).padStart(2,'0');
+    document.getElementById('cdDays').textContent = p(d);
+    document.getElementById('cdHrs').textContent  = p(h);
+    document.getElementById('cdMin').textContent  = p(m);
+    document.getElementById('cdSec').textContent  = p(s);
+    document.getElementById('statDays').textContent = d;
   }
-  videos.forEach(v => {
-    const chLower = v.channel.toLowerCase();
-    const card = document.createElement('div');
-    card.className = 'video-card';
-    const hasId = v.youtubeId && !v.youtubeId.startsWith('PASTE');
-    card.innerHTML = `
-      <div class="${hasId ? 'video-thumb' : 'video-thumb-placeholder'}" ${hasId ? '' : `onclick="window.open('https://youtube.com/watch?v=${v.youtubeId}','_blank')"`}>
-        ${hasId
-          ? `<iframe src="https://www.youtube.com/embed/${v.youtubeId}" allowfullscreen loading="lazy"></iframe>`
-          : `<div class="play-btn"><div class="play-tri"></div></div>`
-        }
+  tick(); setInterval(tick, 1000);
+}
+
+/* ══════════════════════════════
+   SCHEDULE
+══════════════════════════════ */
+function buildSchedule(data) {
+  const html = data.map(i => `
+    <div class="sched-item">
+      <div class="sched-time">${i.time}</div>
+      <div class="sched-icon">${i.icon}</div>
+      <div class="sched-body">
+        <h4>${i.activity}</h4>
+        <p>${i.description}</p>
+        <span class="sched-cat cat-${i.category.toLowerCase()}">${i.category}</span>
       </div>
-      <div class="video-info">
-        <h4>${v.title}</h4>
-        <span class="ch-badge ch-${chLower}">${v.channel}</span>
-        <span class="type-badge">${v.type}</span>
-      </div>`;
-    list.appendChild(card);
-  });
+    </div>`).join('');
+  const els = document.querySelectorAll('#m-schedule-list,#desktop-schedule-list');
+  els.forEach(el => { if(el) el.innerHTML = html; });
 }
 
-function filterVideos(filter, btn) {
-  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  if (filter === 'All') { renderVideos(allVideos); return; }
-  const filtered = allVideos.filter(v => v.channel === filter || v.type === filter);
-  renderVideos(filtered);
-}
-
-async function loadChalisa() {
-  const data = await loadJSON('chalisa.json');
-  if (!data) return;
-  const released = data.filter(c => c.released).length;
-  const pct = Math.round((released / 40) * 100);
-  document.getElementById('chalisaProgress').style.width = pct + '%';
-  document.getElementById('chalisaText').textContent = `${released} of 40 verses released`;
-  const grid = document.getElementById('chalisaGrid');
-  data.forEach(c => {
-    const tile = document.createElement('div');
-    tile.className = 'chaupai-tile ' + (c.released ? 'released' : 'upcoming');
-    tile.innerHTML = `<span class="tile-num">${c.num}</span><span class="tile-lbl">${c.released ? '▶ Watch' : 'Soon'}</span>`;
-    if (c.released && c.youtubeId && !c.youtubeId.startsWith('PASTE')) {
-      tile.onclick = () => window.open(`https://youtube.com/watch?v=${c.youtubeId}`, '_blank');
-    }
-    grid.appendChild(tile);
-  });
-}
-
-async function loadOrgs() {
-  const data = await loadJSON('organizations.json');
-  if (!data) return;
-  document.getElementById('orgCount').textContent = data.length;
-  document.getElementById('orgStatCount').textContent = data.length;
-  const list = document.getElementById('orgList');
-  data.forEach(org => {
-    const item = document.createElement('div');
-    item.className = 'org-list-item';
-    item.innerHTML = `<div class="org-dot"></div><div class="org-list-info"><h5>${org.name}</h5><p>${org.city}</p></div><span class="org-type-badge">${org.participation}</span>`;
-    list.appendChild(item);
-  });
-}
-
-async function fetchRegistrationCount() {
-  // REPLACE THIS URL with your Google Sheet published CSV URL
-  // Steps: In Google Sheets → File → Share → Publish to web → CSV → copy link
-  // Example: https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/export?format=csv&gid=YOUR_GID
-  const SHEET_CSV_URL = 'YOUR_GOOGLE_SHEET_CSV_URL_HERE';
-  try {
-    if (SHEET_CSV_URL.includes('YOUR_GOOGLE')) {
-      document.getElementById('regCount').textContent = '0';
-      return;
-    }
-    const resp = await fetch(SHEET_CSV_URL);
-    const text = await resp.text();
-    const rows = text.trim().split('\n').filter(r => r.trim() && !r.startsWith('First'));
-    document.getElementById('regCount').textContent = Math.max(0, rows.length);
-  } catch(e) {
-    document.getElementById('regCount').textContent = '0';
-  }
-}
-
-function loadContacts() {
-  if (!config.contacts) return;
-  fetchRegistrationCount();
-  const list = document.getElementById('contactsList');
-  config.contacts.forEach(c => {
-    const initials = c.name.split(' ').map(w=>w[0]).join('').substring(0,2);
+function buildActivities(data) {
+  const el = document.getElementById('m-activity-grid');
+  if (!el) return;
+  data.forEach(i => {
     const card = document.createElement('div');
-    card.className = 'contact-card';
-    card.innerHTML = `
+    card.className = 'detail-card';
+    card.style.cssText = 'flex-direction:column;align-items:center;text-align:center;padding:14px 10px';
+    card.innerHTML = `<div style="font-size:28px;margin-bottom:8px">${i.icon}</div><h4 style="font-size:13px;font-family:var(--font-head);color:var(--crimson)">${i.activity}</h4><p style="font-size:11px;color:var(--text-lt);margin-top:4px;line-height:1.4">${i.description.substring(0,60)}...</p>`;
+    el.appendChild(card);
+  });
+}
+
+function buildBringList() {
+  const items = ['Hanuman Chalisā booklet (or use ours)','Traditional Indian attire — orange, yellow, or white encouraged','Water bottle & sunscreen','Yoga mat (for YogaMaala / Surya Namaskars)','An open heart and spirit of devotion'];
+  const html = items.map(i => `<div class="bring-item"><div class="bring-dot"></div>${i}</div>`).join('');
+  document.querySelectorAll('#desktop-bring-list,#m-bring-list-sched').forEach(el => { if(el) el.innerHTML = html; });
+}
+
+/* ══════════════════════════════
+   VIDEOS
+══════════════════════════════ */
+function buildVideos(data, filter) {
+  const filtered = filter === 'All' ? data : data.filter(v => v.channel === filter || v.type === filter);
+  const html = filtered.map(v => {
+    const hasId = v.youtubeId && !v.youtubeId.startsWith('PASTE');
+    const ch = v.channel.toLowerCase();
+    const thumb = hasId
+      ? `<div class="video-thumb-wrap"><iframe src="https://www.youtube.com/embed/${v.youtubeId}" allowfullscreen loading="lazy"></iframe></div>`
+      : `<div class="video-placeholder" onclick="window.open('https://vayuputra.org/gallery/','_blank')"><div class="play-btn"><div class="play-tri"></div></div><p style="color:rgba(255,255,255,0.7);font-size:12px;margin-top:8px">Watch on YouTube</p></div>`;
+    return `<div class="video-card">${thumb}<div class="video-meta"><h4>${v.title}</h4><span class="ch-badge ch-${ch}">${v.channel}</span><span class="type-badge">${v.type}</span></div></div>`;
+  }).join('');
+  document.querySelectorAll('#m-videos-list,#desktop-videos-grid').forEach(el => { if(el) el.innerHTML = html; });
+
+  const filters = ['All','Badri','Yamunotri','Gangotri','Chaupai','Promo'];
+  const filterHtml = filters.map(f => `<div class="vfpill ${f===filter?'on':''}" onclick="filterVids('${f}',this)">${f}</div>`).join('');
+  document.querySelectorAll('#m-vfilter,#desktop-vfilter').forEach(el => { if(el) el.innerHTML = filterHtml; });
+}
+
+function filterVids(f, btn) {
+  buildVideos(allVideos, f);
+}
+
+/* ══════════════════════════════
+   CHALISA
+══════════════════════════════ */
+function buildChalisa(data) {
+  const done = data.filter(c => c.released).length;
+  const pct = Math.round((done/40)*100);
+  ['m-chalisa-bar','desktop-chalisa-bar'].forEach(id => { const el = document.getElementById(id); if(el) el.style.width = pct+'%'; });
+  ['m-chalisa-lbl','desktop-chalisa-lbl'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = `${done} of 40 verses released — ${pct}% ready`; });
+
+  const html = data.map(c => {
+    const cls = c.released ? 'done' : 'soon';
+    const lbl = c.released ? '▶ Watch' : 'Soon';
+    const click = (c.released && c.youtubeId && !c.youtubeId.startsWith('PASTE'))
+      ? `onclick="window.open('https://youtube.com/watch?v=${c.youtubeId}','_blank')"`
+      : '';
+    return `<div class="chaupai-tile ${cls}" ${click}><span class="tile-num">${c.num}</span><span class="tile-lbl">${lbl}</span></div>`;
+  }).join('');
+  document.querySelectorAll('#m-chalisa-grid,#desktop-chalisa-grid').forEach(el => { if(el) el.innerHTML = html; });
+}
+
+/* ══════════════════════════════
+   ORGANIZATIONS
+══════════════════════════════ */
+function buildOrgs(data) {
+  const html = data.map(o => `
+    <div class="org-item">
+      <div class="org-dot-large"></div>
+      <div class="org-item-info">
+        <h5>${o.name}</h5>
+        <p>${o.city}</p>
+      </div>
+      <span class="org-type-pill">${o.participation}</span>
+    </div>`).join('');
+  document.querySelectorAll('#m-org-list').forEach(el => { if(el) el.innerHTML = html; });
+}
+
+function buildPartners(data) {
+  const el = document.getElementById('m-partners-grid');
+  if (!el) return;
+  const partners = data.filter(o => o.type === 'Partner' || o.type === 'Host');
+  if (!partners.length) return;
+  el.innerHTML = partners.map(p => `<div style="background:var(--warm-white);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center"><div style="font-size:12px;font-weight:600;color:var(--crimson)">${p.name.replace('Chinmaya Mission Chicago — ','')}</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px">${p.participation}</div></div>`).join('');
+}
+
+/* ══════════════════════════════
+   FAQ
+══════════════════════════════ */
+function buildFAQ(data) {
+  const html = data.map(f => `
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ${f.q} <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">${f.a}</div>
+    </div>`).join('');
+  document.querySelectorAll('#m-faq-list,#desktop-faq-list').forEach(el => { if(el) el.innerHTML = html; });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+
+/* ══════════════════════════════
+   CONTACTS
+══════════════════════════════ */
+function buildContacts(data) {
+  const html = data.map(c => {
+    const initials = c.name.split(' ').map(w=>w[0]).join('').substring(0,2);
+    return `<div class="contact-card">
       <div class="contact-avatar">${initials}</div>
       <div class="contact-info">
         <h4>${c.name}</h4>
         <p>${c.role}</p>
         <div class="contact-actions">
-          <a href="tel:${c.phone}" class="contact-btn btn-call">📞 Call</a>
-          <a href="mailto:vayuputra@mychinmaya.org" class="contact-btn btn-email">✉️ Email</a>
+          <a href="tel:${c.phone}" class="btn-call">📞 ${c.phoneDisplay}</a>
+          <a href="mailto:vayuputra@mychinmaya.org" class="btn-email">✉️ Email</a>
         </div>
-      </div>`;
-    list.appendChild(card);
-  });
+      </div>
+    </div>`;
+  }).join('');
+  document.querySelectorAll('#m-contacts-list,#desktop-contacts').forEach(el => { if(el) el.innerHTML = html; });
 }
 
-const mainScreens = ['home','schedule','videos','seva','more'];
-function showScreen(id) {
+/* ══════════════════════════════
+   DETAILS (desktop)
+══════════════════════════════ */
+function buildDetails(ev) {
+  const details = [
+    { icon:'📅', title:'Date & Time', text:`Saturday, July 11, 2026<br>Gates open 7:30 AM · Programme from 8:00 AM` },
+    { icon:'📍', title:'Venue', text:`DuPage County Fairgrounds<br>2015 Manchester Rd, Wheaton, IL 60187<br><a href="https://maps.google.com/?q=DuPage+County+Fairgrounds+Wheaton+IL" target="_blank">Get Directions →</a>` },
+    { icon:'🚗', title:'Parking', text:'Free on-site parking available. Arrive early. Metra: Union Pacific West Line — Wheaton Station.' },
+    { icon:'👘', title:'Dress Code', text:'Traditional Indian attire warmly encouraged — saffron, orange, yellow, or white. Comfortable footwear.' },
+    { icon:'🆓', title:'Entry & Registration', text:'Completely free and open to all. Register at vayuputra.org for updates and seva opportunities.' },
+    { icon:'🍱', title:'Food & Prasad', text:'Community prasad served after the Havan. Vegetarian food vendors at the Family Mela all day.' },
+  ];
+  const el = document.getElementById('desktop-details-grid');
+  if (!el) return;
+  el.innerHTML = details.map(d => `<div class="detail-card"><div class="detail-icon">${d.icon}</div><div class="detail-info"><h4>${d.title}</h4><p>${d.text}</p></div></div>`).join('');
+}
+
+/* ══════════════════════════════
+   WHY CHANT (desktop)
+══════════════════════════════ */
+function buildWhyChant() {
+  const items = [
+    { title:'Strength', text:'Hanumān embodies incomparable physical and mental strength. Chanting his Chalisā invokes that inner courage within each devotee.' },
+    { title:'Devotion', text:'The Chalisā is a supreme expression of bhakti — unconditional love for the Divine. Collective chanting amplifies this devotional energy thousandfold.' },
+    { title:'Humility & Seva', text:'Hanumān\'s entire life was an offering of selfless service. Participating in this Yagna is an act of seva to the community and to the Divine.' },
+    { title:'Protection', text:'Ancient tradition teaches that sincere chanting of the Hanumān Chalisā removes obstacles, dispels negativity, and brings the blessings of protection upon one\'s family.' },
+  ];
+  const el = document.getElementById('desktop-why-grid');
+  if (!el) return;
+  el.innerHTML = items.map(i => `<div class="why-card"><h4>${i.title}</h4><p>${i.text}</p></div>`).join('');
+}
+
+/* ══════════════════════════════
+   REGISTRATION OPTIONS (desktop)
+══════════════════════════════ */
+function buildRegOptions() {
+  const opts = [
+    { label:'Most Popular', name:'Ramaduta Seva', desc:'Collective Chalisa Chanting — 21 rounds with all devotees', price:'Free', free:true, featured:true },
+    { name:'Aarti Seva', desc:'Sponsor the sacred evening Arati', price:'$51', free:false },
+    { name:'Lokpujya Seva', desc:'Ahuti thali at Havan kund — 1 offering', price:'$101', free:false },
+    { name:'Shanta Seva', desc:'Ahuti thali at Havan kund — 7 offerings', price:'$251', free:false },
+  ];
+  const el = document.getElementById('desktop-reg-options');
+  if (!el) return;
+  el.innerHTML = opts.map(o => `
+    <div class="reg-card ${o.featured?'featured':''}">
+      <div>
+        ${o.label?`<div class="reg-label">${o.label}</div>`:''}
+        <h4>${o.name}</h4>
+        <p>${o.desc}</p>
+      </div>
+      <div class="reg-price ${o.free?'free':''}">${o.price}</div>
+    </div>`).join('');
+}
+
+/* ══════════════════════════════
+   NAVIGATION
+══════════════════════════════ */
+const mobileScreens = ['home','schedule','chalisa','videos','seva','more'];
+
+function showMobile(name) {
+  // Close any sub-screens
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
-  const navEl = document.getElementById('nav-' + id);
-  if (navEl) navEl.classList.add('active');
-  else {
-    const parentMap = { orgs:'more', chalisa:'more', venue:'more', resources:'more', register:'more', contacts:'more' };
-    const parentNav = document.getElementById('nav-' + (parentMap[id] || 'more'));
-    if (parentNav) parentNav.classList.add('active');
-  }
+  const el = document.getElementById('m-'+name);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
+  const nb = document.getElementById('nav-'+name);
+  if (nb) nb.classList.add('on');
+  else { const nav = document.getElementById('nav-more'); if(nav) nav.classList.add('on'); }
+  currentMobileScreen = name;
+  window.scrollTo(0,0);
 }
 
-function showSubScreen(id) {
-  showScreen(id);
+function openSub(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) { el.classList.add('active'); window.scrollTo(0,0); }
 }
 
-function submitRegistration() {
+function closeSub() {
+  showMobile(currentMobileScreen === 'more' ? 'more' : currentMobileScreen);
+}
+
+/* ══════════════════════════════
+   REGISTRATION FORM
+══════════════════════════════ */
+function submitReg() {
   const fname = document.getElementById('fName').value.trim();
   const email = document.getElementById('fEmail').value.trim();
   if (!fname || !email) { alert('Please fill in your name and email.'); return; }
   document.getElementById('successMsg').style.display = 'block';
-  document.querySelector('.form-submit').disabled = true;
-  document.querySelector('.form-submit').textContent = '✓ Submitted';
-  window.open(`https://vayuputra.org`, '_blank');
+  const btn = document.querySelector('.form-submit');
+  if(btn) { btn.disabled = true; btn.textContent = '✓ Submitted'; }
+  window.open('https://vayuputra.org/register-sponsors/', '_blank');
 }
 
 init();
