@@ -19,7 +19,7 @@
   },
   {
     "id": "v003",
-    "title": "Vāyuputra in Windy City — Promo",
+    "title": "Vāyuputra in Windy City — Official Promo",
     "channel": "Yamunotri",
     "type": "Promo",
     "youtubeId": "YITROLpq8sU",
@@ -46,6 +46,60 @@
   },
   {
     "id": "v006",
+    "title": "Chaupai 3 — Ram Doot Atulit Bal Dhama",
+    "channel": "Gangotri",
+    "type": "Chaupai",
+    "youtubeId": "PASTE_CHAUPAI_3_ID",
+    "date": "2026-01-31",
+    "featured": false
+  },
+  {
+    "id": "v007",
+    "title": "Chaupai 4 — Anjani Putra Pavan Sut Nama",
+    "channel": "Yamunotri",
+    "type": "Chaupai",
+    "youtubeId": "PASTE_CHAUPAI_4_ID",
+    "date": "2026-02-07",
+    "featured": false
+  },
+  {
+    "id": "v008",
+    "title": "Chaupai 5 — Mahavir Vikram Bajrangi",
+    "channel": "Badri",
+    "type": "Chaupai",
+    "youtubeId": "PASTE_CHAUPAI_5_ID",
+    "date": "2026-02-14",
+    "featured": false
+  },
+  {
+    "id": "v009",
+    "title": "Chaupai 6 — Kumati Nivar Sumati Ke Sangi",
+    "channel": "Gangotri",
+    "type": "Chaupai",
+    "youtubeId": "PASTE_CHAUPAI_6_ID",
+    "date": "2026-02-21",
+    "featured": false
+  },
+  {
+    "id": "v010",
+    "title": "Chaupai 7 — Kanchan Baran Biraj Subhesa",
+    "channel": "Yamunotri",
+    "type": "Chaupai",
+    "youtubeId": "PASTE_CHAUPAI_7_ID",
+    "date": "2026-02-28",
+    "featured": false
+  },
+  {
+    "id": "v011",
+    "title": "Chaupai 8 — Kanan Kundal Kunchit Kesa",
+    "channel": "Badri",
+    "type": "Chaupai",
+    "youtubeId": "PASTE_CHAUPAI_8_ID",
+    "date": "2026-03-07",
+    "featured": false
+  },
+  {
+    "id": "v012",
     "title": "Sponsorship & Seva — How to Participate",
     "channel": "Gangotri",
     "type": "Promo",

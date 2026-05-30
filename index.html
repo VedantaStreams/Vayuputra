@@ -513,25 +513,77 @@ select.form-input { appearance: none; }
 .success-msg p { color: var(--green); font-size: 13px; }
 
 /* ═══════════════════════════════════════════════════
-   BOTTOM NAV (mobile)
+   BOTTOM NAV (mobile) — matches phone preview exactly
 ═══════════════════════════════════════════════════ */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
   display: flex; background: var(--crimson);
-  border-top: 2px solid var(--gold);
+  border-top: 2.5px solid var(--gold);
   padding-bottom: env(safe-area-inset-bottom, 0);
+  box-shadow: 0 -4px 20px rgba(107,18,18,0.35);
 }
-.nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 7px 4px 8px; cursor: pointer; border: none; background: none; transition: background 0.15s; }
+.nav-btn {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 8px 2px 10px; cursor: pointer; border: none; background: none;
+  transition: background 0.15s; position: relative;
+}
 .nav-btn:hover { background: rgba(255,255,255,0.08); }
-.nav-btn.on { background: rgba(232,176,32,0.12); }
-.nav-icon { font-size: 20px; line-height: 1; }
-.nav-lbl { font-size: 9px; color: rgba(255,255,255,0.55); margin-top: 3px; letter-spacing: 0.3px; font-family: var(--font-head); }
-.nav-btn.on .nav-lbl { color: var(--gold-lt); }
-.nav-btn.on .nav-icon { filter: drop-shadow(0 0 4px rgba(232,176,32,0.6)); }
+.nav-btn.on { background: rgba(200,146,10,0.18); }
+.nav-btn.on::after {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 3px; background: var(--gold-lt);
+  border-radius: 0 0 3px 3px;
+}
+.nav-icon { font-size: 22px; line-height: 1; transition: filter 0.15s; }
+.nav-lbl {
+  font-size: 9px; color: rgba(255,255,255,0.5); margin-top: 4px;
+  letter-spacing: 0.5px; font-family: var(--font-head); text-transform: uppercase;
+}
+.nav-btn.on .nav-lbl { color: var(--gold-lt); font-weight: 700; }
+.nav-btn.on .nav-icon { filter: drop-shadow(0 0 5px rgba(232,176,32,0.7)); }
 
 /* ═══════════════════════════════════════════════════
-   ORGS LIST
+   YOUTUBE PIN BUTTONS
 ═══════════════════════════════════════════════════ */
+.yt-pin {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #FF0000; color: #fff; border: none; border-radius: 6px;
+  padding: 5px 10px; font-size: 11px; font-weight: 700;
+  cursor: pointer; text-decoration: none; margin-top: 6px;
+  transition: background 0.15s, transform 0.1s;
+  font-family: var(--font-head); letter-spacing: 0.5px;
+}
+.yt-pin:hover { background: #CC0000; transform: scale(1.03); }
+.yt-pin .yt-logo { font-size: 14px; }
+
+.yt-tile-btn {
+  display: block; width: 100%;
+  background: #FF0000; color: #fff; border: none;
+  border-radius: 0 0 7px 7px; padding: 4px 2px;
+  font-size: 9px; font-weight: 700; cursor: pointer;
+  text-decoration: none; text-align: center;
+  letter-spacing: 0.3px;
+}
+.yt-tile-btn:hover { background: #CC0000; }
+
+.chaupai-tile {
+  border-radius: 8px; overflow: hidden;
+  cursor: pointer; transition: transform 0.15s;
+  border: 1px solid transparent; display: flex; flex-direction: column;
+}
+.chaupai-tile:active { transform: scale(0.95); }
+.tile-inner { padding: 8px 4px 6px; flex: 1; text-align: center; }
+.chaupai-tile.done .tile-inner { background: linear-gradient(135deg, #1A5A30, #2D8A4A); }
+.chaupai-tile.soon .tile-inner { background: var(--cream-dk); border: 1px solid var(--border); }
+/* override old tile styles */
+.chaupai-tile.done { background: none; border: none; }
+.chaupai-tile.soon { background: none; border: none; }
+
+/* ═══════════════════════════════════════════════════
+   VIDEO CARD — enhanced with pin
+═══════════════════════════════════════════════════ */
+.video-card-footer { padding: 8px 14px 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+.video-badges { display: flex; gap: 4px; flex-wrap: wrap; }
 .org-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
 .org-item:last-child { border-bottom: none; }
 .org-dot-large { width: 10px; height: 10px; border-radius: 50%; background: var(--saffron); flex-shrink: 0; }
@@ -1166,14 +1218,34 @@ function buildVideos(data, filter) {
   const html = filtered.map(v => {
     const hasId = v.youtubeId && !v.youtubeId.startsWith('PASTE');
     const ch = v.channel.toLowerCase();
+    const ytUrl = hasId
+      ? `https://www.youtube.com/watch?v=${v.youtubeId}`
+      : `https://www.youtube.com/playlist?list=PLzeP3MN_ht0kdUCIPBwNQ32OaKCbzVJMg`;
     const thumb = hasId
       ? `<div class="video-thumb-wrap"><iframe src="https://www.youtube.com/embed/${v.youtubeId}" allowfullscreen loading="lazy"></iframe></div>`
-      : `<div class="video-placeholder" onclick="window.open('https://vayuputra.org/gallery/','_blank')"><div class="play-btn"><div class="play-tri"></div></div><p style="color:rgba(255,255,255,0.7);font-size:12px;margin-top:8px">Watch on YouTube</p></div>`;
-    return `<div class="video-card">${thumb}<div class="video-meta"><h4>${v.title}</h4><span class="ch-badge ch-${ch}">${v.channel}</span><span class="type-badge">${v.type}</span></div></div>`;
+      : `<div class="video-placeholder" onclick="window.open('${ytUrl}','_blank')">
+           <div class="play-btn"><div class="play-tri"></div></div>
+           <p style="color:rgba(255,255,255,0.7);font-size:12px;margin-top:8px">Tap to watch on YouTube</p>
+         </div>`;
+    return `<div class="video-card">
+      ${thumb}
+      <div class="video-meta">
+        <h4>${v.title}</h4>
+      </div>
+      <div class="video-card-footer">
+        <div class="video-badges">
+          <span class="ch-badge ch-${ch}">${v.channel}</span>
+          <span class="type-badge">${v.type}</span>
+        </div>
+        <a href="${ytUrl}" target="_blank" class="yt-pin">
+          <span class="yt-logo">▶</span> Watch on YouTube
+        </a>
+      </div>
+    </div>`;
   }).join('');
-  document.querySelectorAll('#m-videos-list,#desktop-videos-grid').forEach(el => { if(el) el.innerHTML = html; });
+  document.querySelectorAll('#m-videos-list,#desktop-videos-grid').forEach(el => { if(el) el.innerHTML = html || '<p style="padding:20px;text-align:center;color:var(--text-muted)">No videos found.</p>'; });
 
-  const filters = ['All','Badri','Yamunotri','Gangotri','Chaupai','Promo'];
+  const filters = ['All','Badri','Yamunotri','Gangotri','Chaupai','Promo','Wisdom'];
   const filterHtml = filters.map(f => `<div class="vfpill ${f===filter?'on':''}" onclick="filterVids('${f}',this)">${f}</div>`).join('');
   document.querySelectorAll('#m-vfilter,#desktop-vfilter').forEach(el => { if(el) el.innerHTML = filterHtml; });
 }
@@ -1189,16 +1261,37 @@ function buildChalisa(data) {
   const done = data.filter(c => c.released).length;
   const pct = Math.round((done/40)*100);
   ['m-chalisa-bar','desktop-chalisa-bar'].forEach(id => { const el = document.getElementById(id); if(el) el.style.width = pct+'%'; });
-  ['m-chalisa-lbl','desktop-chalisa-lbl'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = `${done} of 40 verses released — ${pct}% ready`; });
+  ['m-chalisa-lbl','desktop-chalisa-lbl'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = `${done} of 40 verses released — ${pct}% ready for July 11`; });
+
+  const PLAYLIST = 'https://www.youtube.com/playlist?list=PLzeP3MN_ht0kdUCIPBwNQ32OaKCbzVJMg';
 
   const html = data.map(c => {
-    const cls = c.released ? 'done' : 'soon';
-    const lbl = c.released ? '▶ Watch' : 'Soon';
-    const click = (c.released && c.youtubeId && !c.youtubeId.startsWith('PASTE'))
-      ? `onclick="window.open('https://youtube.com/watch?v=${c.youtubeId}','_blank')"`
-      : '';
-    return `<div class="chaupai-tile ${cls}" ${click}><span class="tile-num">${c.num}</span><span class="tile-lbl">${lbl}</span></div>`;
+    const hasId = c.youtubeId && !c.youtubeId.startsWith('PASTE') && c.youtubeId !== '';
+    const ytUrl = hasId
+      ? `https://www.youtube.com/watch?v=${c.youtubeId}`
+      : (c.released ? PLAYLIST : null);
+
+    if (c.released) {
+      // Green tile — released, always has a YouTube link
+      return `<div class="chaupai-tile done" onclick="window.open('${ytUrl}','_blank')">
+        <div class="tile-inner">
+          <span class="tile-num" style="color:#fff">${c.num}</span>
+          <span class="tile-lbl" style="color:rgba(255,255,255,0.85)">▶ Watch</span>
+        </div>
+        <a href="${ytUrl}" target="_blank" class="yt-tile-btn" onclick="event.stopPropagation()">▶ YouTube</a>
+      </div>`;
+    } else {
+      // Grey tile — not yet released
+      return `<div class="chaupai-tile soon">
+        <div class="tile-inner">
+          <span class="tile-num" style="color:var(--text-muted)">${c.num}</span>
+          <span class="tile-lbl" style="color:var(--text-muted);opacity:0.6">Soon</span>
+        </div>
+        <div style="background:#ddd;height:22px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;border-radius:0 0 7px 7px">Coming</div>
+      </div>`;
+    }
   }).join('');
+
   document.querySelectorAll('#m-chalisa-grid,#desktop-chalisa-grid').forEach(el => { if(el) el.innerHTML = html; });
 }
 
