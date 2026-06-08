@@ -7,3 +7,4 @@ Thumbs.db
 .env.local
 node_modules/
 .netlify/
+.streamlit/secrets.toml
